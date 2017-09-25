@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Super Admins</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @super_admins.each do |super_admin| %>
+      <tr>
+        <td><%= super_admin.name %></td>
+        <td><%= super_admin.email %></td>
+        <td><%= link_to 'Show', super_admin %></td>
+        <td><%= link_to 'Edit', edit_super_admin_path(super_admin) %></td>
+        <td><%= link_to 'Destroy', super_admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Super Admin', new_super_admin_path %>

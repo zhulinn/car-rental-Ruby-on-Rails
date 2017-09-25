@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @customer.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @customer.email %>
+</p>
+
+<!-- <p>
+  <strong>Password digest:</strong>
+  <%= @customer.password_digest %>
+</p>-->
+
+<p>
+  <strong>Charge:</strong>
+  <%= @customer.charge %>
+</p>
+
+<%= link_to 'Edit Profile', edit_admin_customer_path(@admin.id, @customer.id) %> |
+<%= link_to 'Back', all_customers_admin_path(@admin) %>
+

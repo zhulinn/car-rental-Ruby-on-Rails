@@ -1,0 +1,23 @@
+<h1>Editing Customer</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <% if true %>
+    <%= form_for @customer, url: {controller: :admins, action: :update_customer, :id_admin => @admin.id, :id_customer => @customer.id} do |f| %>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+
+
+        <div class="field">
+        </div>
+        <div class="field">
+          <%= f.submit %>
+        </div>
+    <% end %>
+    <% end %>
+  </div>
+</div>
+
+<%= link_to 'Back', show_admin_customer_path(@admin.id, @customer.id) %>

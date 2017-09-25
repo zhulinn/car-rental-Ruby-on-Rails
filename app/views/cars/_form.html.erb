@@ -1,0 +1,54 @@
+<%= form_with(model: car, local: true) do |form| %>
+  <% if car.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(car.errors.count, "error") %> prohibited this car from being saved:</h2>
+
+      <ul>
+      <% car.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :license %>
+    <%= form.text_field :license, id: :car_license %>
+  </div>
+
+  <div class="field">
+    <%= form.label :manufacturer %>
+    <%= form.text_field :manufacturer, id: :car_manufacturer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model, id: :car_model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rate %>
+    <%= form.number_field :rate, id: :car_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :style %>
+    <%= form.select :style, [ 'Sedan', 'Coupe', 'SUV'], :prompt => 'Select One' %>
+
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location, id: :car_location %>
+  </div>
+
+
+    <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, [ 'Available', 'Checked out', 'Reserved'] %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

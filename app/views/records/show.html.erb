@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Car:</strong>
+  <%= @record.car %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @record.user %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @record.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @record.end %>
+</p>
+
+<%= link_to 'Edit', edit_record_path(@record) %> |
+<%= link_to 'Back', records_path %>
