@@ -145,9 +145,8 @@ class CustomersController < ApplicationController
   # DELETE /customers/1.json
   def destroy
     @customer.destroy
-    #@admin=Admin.find(params[:id_admin])
     respond_to do |format|
-      format.html { redirect_to all_customers_admin_url(@admin.id), notice: 'Customer was successfully destroyed.' }
+      format.html { redirect_to all_customers_admin_url($admin.id), notice: 'Customer was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

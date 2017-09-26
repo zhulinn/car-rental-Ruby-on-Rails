@@ -24,6 +24,13 @@ Rails.application.routes.draw do
   patch '/admins/:id_admin/show_customer/:id_customer', to: 'admins#update_customer'#, as: 'update_admin_customer'
   put '/admins/:id_admin/show_customer/:id_customer', to: 'admins#update_customer'#, as: 'update_admin_customer'
   #, as: 'destroy_admin_customer'
+  get '/admins/:id_admin/history_customer/:id_customer', to: 'admins#history_customer', as: 'history_admin_customer'
+  get '/admins/:id_admin/search_customer/:id_customer', to: 'admins#search_customer', as: 'search_admin_customer'
+  get '/admins/:id_admin/show_car_customer/:id_customer/:id_car', to: 'admins#show_car_customer', as: 'show_admin_customer_car'
+  get '/admins/:id_admin/reserve_customer/:id_customer/:id_car', to: 'admins#reserve_customer', as: 'reserve_admin_customer_car'
+  get '/admins/:id_admin/checkout_customer/:id_customer/:id_car', to: 'admins#checkout_customer', as: 'checkout_admin_customer_car'
+  get '/admins/:id_admin/return_customer/:id_customer/:id_car', to: 'admins#return_customer', as: 'return_admin_customer_car'
+
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'

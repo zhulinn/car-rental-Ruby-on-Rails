@@ -97,10 +97,112 @@ class AdminsController < ApplicationController
     redirect_to all_customers_admin_path(@admin), notice: 'Customer was successfully destroyed.'
   end
 
+  def search_customer
+    #  set_customer if @customer.nil?
+    q = params[:q]
+    if q.nil? || q.blank?
+      @cars = Car.all
+    else
+      w = params[:w]
+      @cars = Car.where("lower(#{w}) = ?", q.downcase)
+    end
+  end
+
+  def reserve_customer
+    @car=Car.find(params[:id_car])
+    @customer=Customer.find(params[:id_customer])
+    @admin=Admin.find(params[:id_admin])
+    require "date"
+    starttime = DateTime.new(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i, params[:start_date][:hour].to_i, params[:start_date][:minute].to_i,59,'-4')
+
+    if starttime  < Time.now || starttime > Time.now + 7.days
+      respond_to do |format|
+        format.html { redirect_to show_admin_customer_car_path, notice: 'Start Time is not valid.' }
+        format.json { head :no_content }
+      end
+    else
+      @car.update(status: 'Reserved')
+      @customer.update_attribute(:recordid, "#{-1 - @car.id}")
+      ########################################
+      #  定时任务  endtime  change to available,
+      # 借车 中断定时
+      ########################################
+      respond_to do |format|
+        format.html { redirect_to show_admin_customer_car_path, notice: 'Car was successfully reserved.' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  def checkout_customer
+    @car=Car.find(params[:id_car])
+    @customer=Customer.find(params[:id_customer])
+    @admin=Admin.find(params[:id_admin])
+    @car.update(status: 'Checked out')
+    arecord = Record.new()
+    arecord.customer= @customer
+    arecord.car = @car
+    now = Time.current
+    arecord.save
+    @customer.update_attribute(:recordid, "#{arecord.id}")
+    arecord.update_attribute(:start, "#{now}")
+
+    endtime = now +  params[:h].to_i.hour
+########################################
+#  Open Timer （call return method）  endtime  change to available
+
+########################################
+    respond_to do |format|
+      format.html { redirect_to show_admin_customer_car_path, notice: 'Car was successfully checked out.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def return_customer
+    @car=Car.find(params[:id_car])
+    @customer=Customer.find(params[:id_customer])
+    @admin=Admin.find(params[:id_admin])
+    @car.update(status: 'Available')
+    now = Time.current
+    @record = Record.find(@customer.recordid)
+    @record.update_attribute(:end, "#{now}")
+    hours = ((@record.end - @record.start) / 1.hour).ceil
+    @record.update_attribute(:hours, "#{hours}")
+    sum = 0
+    @customer.records.each do |record|
+      unless record.hours.nil?
+        sum = record.hours * @car.rate
+      end
+    end
+    @customer.update_attribute(:charge, "#{sum}")#delete current Record
+    @customer.update_attribute(:recordid, "")#delete current Record
+
+    # End Timer
+
+
+    respond_to do |format|
+      format.html { redirect_to show_admin_customer_car_path, notice: 'Car was successfully returned.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def show_car_customer
+    @car = Car.find(params[:id_car])
+    @customer = Customer.find(params[:id_customer])
+    @admin=Admin.find(params[:id_admin])
+  end
+
+  def history_customer
+    @admin=Admin.find(params[:id_admin])
+    @customer=Customer.find(params[:id_customer])
+    @records = @customer.records
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
       @admin = Admin.find(params[:id])
+      @@admin=@admin
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

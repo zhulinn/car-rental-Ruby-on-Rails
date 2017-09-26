@@ -1,0 +1,62 @@
+
+<h1>Cars</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>License</th>
+    <th>Manufacturer</th>
+    <th>Model</th>
+    <th>Rate</th>
+    <th>Style</th>
+    <th>Location</th>
+    <th>Status</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% unless @cars.nil? %>
+  <% @cars.each do |car| %>
+      <tr>
+        <td><%= car.license %></td>
+        <td><%= car.manufacturer %></td>
+        <td><%= car.model %></td>
+        <td><%= car.rate %></td>
+        <td><%= car.style %></td>
+        <td><%= car.location %></td>
+        <td><%= car.status %></td>
+        <% @admin=Admin.find(params[:id_admin]) %>
+        <% @customer=Customer.find(params[:id_customer]) %>
+        <td><%= link_to 'Show', show_admin_customer_car_path(@admin.id, @customer.id, car.id) %></td>
+       <!-- <% if car.status == "Reserved" || car.status == "Available" %>
+            <% if car.status == "Available" %>
+                 <td><%= link_to 'Reserve', reserve_customer_path(car) %></td>
+            <% end %>
+            <td><%= link_to 'Check out', checkout_customer_path(car) %></td>
+        <% else %>
+            <td><%= link_to 'Return', return_customer_path(car )%></td>
+        <% end %>-->
+      </tr>
+  <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+
+
+<h3>Custom Search</h3>
+
+<%= form_tag(search_admin_customer_path, method: "get") do %>
+    <%= label_tag(:q, "Search for:") %>
+    <%= select_tag :w, options_for_select([ 'Location','Model','Manufacturer','Style' ,'Status']) %>
+    <%= text_field_tag(:q) %>
+    <%= submit_tag("Search") %>
+<% end %>
+
+<br>
+<br>
+
+
+
+<%= link_to 'Back', show_admin_customer_path %>

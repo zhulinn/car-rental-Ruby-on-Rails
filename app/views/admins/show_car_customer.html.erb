@@ -1,0 +1,85 @@
+<% @car=Car.find(params[:id_car]) %>
+<% @customer=Customer.find(params[:id_customer]) %>
+<% @admin=Admin.find(params[:id_admin]) %>
+
+
+<p>
+  <strong>License:</strong>
+  <%= @car.license %>
+</p>
+
+<p>
+  <strong>Manufacturer:</strong>
+  <%= @car.manufacturer %>
+</p>
+
+<p>
+  <strong>Model:</strong>
+  <%= @car.model %>
+</p>
+
+<p>
+  <strong>Rate:</strong>
+  <%= @car.rate %>
+</p>
+
+<p>
+  <strong>Style:</strong>
+  <%= @car.style %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @car.location %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @car.status %>
+<p id="notice"><%= notice %></p>
+  <hr>   <hr>
+</p>
+
+
+<% if @customer.recordid.nil? %>
+    <% if @car.status == "Available"%>
+        <%= form_tag(reserve_admin_customer_car_path, method: "get") do %>
+          <strong>Start Time:</strong>
+            <%= select_datetime  Time.now, prefix: :start_date %>
+          <%= "(*Within 7 days)" %>
+          <br>
+          <br>
+          <strong>Rental Hours:</strong>
+          <%= select_tag :day, options_for_select([['1', 1], ['2', 2], ['3', 3],['4', 4],['5', 5],['6', 6],['7', 7],['8', 8],['9', 9],['10',10]]) %>
+          <br>
+            <%= submit_tag("Reserve") %>
+          <hr><hr>
+        <% end %>
+            <%= form_tag(checkout_customer_path([@car, @customer]), method: "get") do %>
+                <strong>Rental Hours:     </strong>
+                <%= select_tag :h, options_for_select([['1', 1], ['2', 2], ['3', 3],['4', 4],['5', 5],['6', 6],['7', 7],['8', 8],['9', 9],['10',10]]) %>
+                <br>
+                <br>
+                <%= submit_tag("Rent") %>
+                <hr><hr>
+            <% end %>
+    <% end %>
+<% elsif @customer.recordid < 0 %>
+            <% if @customer.recordid  == (-1 - @car.id) %>
+              <%= form_tag(checkout_admin_customer_car_path, method: "get") do %>
+                  <strong>Rental Hours:     </strong>
+                  <%= select_tag :h, options_for_select([['1', 1], ['2', 2], ['3', 3],['4', 4],['5', 5],['6', 6],['7', 7],['8', 8],['9', 9],['10',10]]) %>
+                  <br>
+                  <br>
+                  <%= submit_tag("Rent") %>
+                  <hr><hr>
+             <% end %>
+            <% end %>
+<% else%>
+    <% @record = Record.find(@customer.recordid) %>
+    <% if @record.car== @car %>
+    <td><%= link_to 'Return', return_admin_customer_car_path%></td>
+    <hr>   <hr>
+    <% end %>
+<% end %>
+<%= link_to 'Back', search_admin_customer_path%>
