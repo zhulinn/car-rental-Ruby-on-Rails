@@ -1964,3 +1964,210 @@ Processing by Sessions2Controller#new as HTML
 Completed 200 OK in 30ms (Views: 28.3ms | ActiveRecord: 0.0ms)
 
 
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-25 22:10:50 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"C8U6zonbhQLhYGzUFH+APuTlp8blUZ2CihKUt/cQHlK/9r923gs3tJDGY//KuX3IBmwVjCQpOqUCkFoLo0jLWA==", "session2"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admins/1
+Completed 302 Found in 54ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-25 22:10:50 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 23ms (Views: 21.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 22:10:54 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 26ms (Views: 23.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 22:10:57 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 29ms (Views: 27.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 22:10:58 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"xvK+s+6uABitFLFVPm6SaB5YkUJ/Nnbuf7df19MR7ARywTsLuX6yrtyyvn7gqG+e/NEjCL5O0cn3NZFrh0k5Dg==", "session"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.3ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+No template found for SessionsController#create, rendering head :no_content
+Completed 204 No Content in 39ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 22:11:18 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 25ms (Views: 23.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 22:11:20 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"98ZAsgLCQ24e4EaX44iy315f0bQvIl/nVU4iRA77jMlD9cUKVRLx2G9GSbw9Tk8pvNZj/u5a+MDdzOz4WqNZww==", "session"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+No template found for SessionsController#create, rendering head :no_content
+Completed 204 No Content in 39ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 22:11:23 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (6.3ms)
+Completed 200 OK in 33ms (Views: 30.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 22:11:28 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"HhSTBoyyWlI8MEORTMV+Gl5MyeHaCuT9wGDdpzvKGGCqJxa+22Lo5E2WTLqSA4PsvMV7qxtyQ9pI4hMbb5LNag==", "session"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+No template found for SessionsController#create, rendering head :no_content
+Completed 204 No Content in 43ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 22:11:35 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 25ms (Views: 23.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 22:13:39 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 23ms (Views: 22.2ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 22:13:41 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"op7AI/XX5bikW7whjdDQgrX9hpi+fk3SKcuqCcpM1b4WrUWbogdXDtX9swpTFi10V3Q00n8G6vWhSWS1nhQAtA==", "session"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 36ms (Views: 29.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 22:13:50 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"j1k9+RAZwtg9W1bJdlQK4bWJniEJHhpXZqdQhc2gKs47arhBR8lwbkz9WeKokvcXVwAsa8hmvXDuJZ45mfj/xA==", "session"=>{"email"=>"jj@126.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "jj@126.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/customers/1
+Completed 302 Found in 58ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/customers/1" for 127.0.0.1 at 2017-09-25 22:13:50 -0400
+Processing by CustomersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering customers/show.html.erb within layouts/application
+  Rendered customers/show.html.erb within layouts/application (146.0ms)
+Completed 500 Internal Server Error in 151ms (ActiveRecord: 0.1ms)
+
+
+  
+ActionView::Template::Error (undefined local variable or method `logout_path' for #<#<Class:0x007fd3cacde0d8>:0x007fd3cacdc008>
+Did you mean?  log_out):
+    21: </p>
+    22: 
+    23: <%= link_to 'Edit My Profile', edit_customer_path(@customer) %> |
+    24: <%= link_to 'Log out', logout_path, method: :delete %> |
+    25: <%= link_to 'Rent a car', search_customer_path(@customer)%> |
+    26: <% unless @customer.recordid.nil? %>
+    27:     <% if @customer.recordid < 0 %>
+  
+app/views/customers/show.html.erb:24:in `_app_views_customers_show_html_erb___2196593566162799085_70273808659640'
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 22:17:15 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 29ms (Views: 28.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 22:17:19 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"17Fj+kzhaRo1gN2kgEOsvZfDe9OtFm4kdIAPKebgw0ZjguZCGzHbrEQm0o9ehVFLdUrJmWxuyQP8AsGVsrgWTA==", "session"=>{"email"=>"jj@126.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "jj@126.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/customers/1
+Completed 302 Found in 60ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/customers/1" for 127.0.0.1 at 2017-09-25 22:17:19 -0400
+Processing by CustomersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering customers/show.html.erb within layouts/application
+  Rendered customers/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 26ms (Views: 24.2ms | ActiveRecord: 0.1ms)
+
+
+Started DELETE "/customer_logout" for 127.0.0.1 at 2017-09-25 22:17:21 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"qNzCQjt3aRXQqB3ZpdduJHnXMLsc5UbIdrr03Zub3m8c70f6bKfbo6EOEvJ7EZPSm16C8d2d4e/+ODphz8MLZQ=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 22:18:23 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 27ms (Views: 24.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-25 22:18:25 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"4kUiY5r2ehPciXP+gvfKn3Yv8B9duFatJ6zEVf2jOkpWdqfbzSbIpa0vfNVcMTdplKZCVZzA8YqvLgrpqfvvQA==", "session2"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admins/1
+Completed 302 Found in 63ms (ActiveRecord: 0.5ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-25 22:18:25 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 25ms (Views: 22.7ms | ActiveRecord: 0.1ms)
+
+
+Started DELETE "/admin_logout" for 127.0.0.1 at 2017-09-25 22:18:29 -0400
+Processing by Sessions2Controller#destroy as HTML
+  Parameters: {"authenticity_token"=>"0n2UKr4+KvgmAmI8/uRhYgprL2mRukzLEsatkYg1REpmThGS6e6YTlekbRcgIpyU6OKdI1DC6+yaRGMt3G2RQA=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 22:19:09 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 30ms (Views: 28.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-25 22:19:11 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3b31K+c/QVn2gP+tLGajFqKBtotsL2L/Y9KAODMXn4VpjnCTsO/z74cm8IbyoF7gQAgEwa1XxdjrUE6EZ09Kjw==", "session2"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admins/1
+Completed 302 Found in 57ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-25 22:19:11 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 29ms (Views: 26.9ms | ActiveRecord: 0.1ms)
+
+
