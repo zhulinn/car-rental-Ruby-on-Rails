@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class Sessions3ControllerTest < ActionDispatch::IntegrationTest
+class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
-    get sessions3_new_url
+    get super_admin_login_path
     assert_response :success
   end
 

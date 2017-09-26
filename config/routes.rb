@@ -31,9 +31,6 @@ Rails.application.routes.draw do
   put '/admins/:id_admin/show_customer/:id_customer', to: 'admins#update_customer'#, as: 'update_admin_customer'
   #, as: 'destroy_admin_customer'
 
-  get    '/login',   to: 'sessions#new'
-  post   '/login',   to: 'sessions#create'
-  delete '/logout',  to: 'sessions#destroy'
 
 
   delete '/admins/:id_admin/show_customer/:id_customer', to: 'customers#destroy'
