@@ -3787,3 +3787,34 @@ Processing by SessionsController#new as HTML
 Completed 200 OK in 29ms (Views: 26.5ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-26 00:43:31 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 72ms (Views: 69.7ms)
+
+
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-26 00:43:47 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"sGtzlAF+VDr0ukjw0AFXF3dCV3Pr2QUi0FD0NCiek9XEZWr8FRGmSd8HFWmCUI/CIitwaWdeyr/hAfIiRozzyQ==", "session2"=>{"email"=>"admin1@email.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "admin1@email.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admins/1
+Completed 302 Found in 65ms (ActiveRecord: 0.7ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-26 00:43:47 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 27ms (Views: 24.4ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/admin_logout" for 127.0.0.1 at 2017-09-26 00:43:51 -0400
+Processing by Sessions2Controller#destroy as HTML
+  Parameters: {"authenticity_token"=>"bscrOGRX2OmBGkmalgFfpXYsUyAK/ccaMWmHQ/mfMfkayTJQcDgqmqqnFAPEUIdwI0V0OoZ6CIcAOIFVl41R5Q=="}
+Redirected to http://localhost:3000/index
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
+
+

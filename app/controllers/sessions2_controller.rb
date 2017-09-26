@@ -17,7 +17,7 @@ class Sessions2Controller < ApplicationController
 
   def destroy
     log_out
-    redirect_to "https://car-rental-ltx.herokuapp.com"
+    redirect_to "/index"
 
   end
 end
