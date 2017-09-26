@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="028d4213-393b-4758-86c9-cf1616810931" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Car-rental.iml" afterPath="$PROJECT_DIR$/.idea/Car-rental.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-    </list>
+    <list default="true" id="028d4213-393b-4758-86c9-cf1616810931" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
     <ignored path="$PROJECT_DIR$/public/system/" />
@@ -530,7 +526,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15264000" />
+    <option name="totallyTimeSpent" value="15331000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="111" y="75" width="1248" height="744" extended-state="0" />

@@ -3726,3 +3726,34 @@ Processing by AdminsController#search_customer as HTML
 Completed 200 OK in 60ms (Views: 49.7ms | ActiveRecord: 1.3ms)
 
 
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 23:32:55 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.9ms)
+Completed 200 OK in 64ms (Views: 61.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 23:33:09 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Ux5/yw1V/XOk75x+Sei6pbKO7BKvtC0ymUg5yqbmwpUnEGajGToPAI9SwecbuWJw5+fLCCMz4q+oGT/cyPSiiQ==", "session"=>{"email"=>"user1@email.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "user1@email.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/customers/5
+Completed 302 Found in 60ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/customers/5" for 127.0.0.1 at 2017-09-25 23:33:09 -0400
+Processing by CustomersController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+  Rendering customers/show.html.erb within layouts/application
+  Rendered customers/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 36ms (Views: 33.3ms | ActiveRecord: 0.2ms)
+
+
+Started DELETE "/customer_logout" for 127.0.0.1 at 2017-09-25 23:33:11 -0400
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"OYpvtNh9eb26hMbR27sxh/r+Yf45nDOVs7HiVWSrh8tNhHbczBKLzpE5m0iJ6ulSr5dG5LUb/AiC4ORDCrnn1w=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
+
+
