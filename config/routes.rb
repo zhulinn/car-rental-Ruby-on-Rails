@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
 
+  get 'sessions3/new'
+
+  get 'sessions2/new'
+
   get 'sessions/new'
 
   resources :admins do
@@ -30,15 +34,27 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  #root 'customers#index'
+
 
   delete '/admins/:id_admin/show_customer/:id_customer', to: 'customers#destroy'
 
-  get    '/signup',  to: 'customers#new'
+  get    '/customer_signup',  to: 'customers#new'
   get    '/customer_login',   to: 'sessions#new'
-  post   '/login',   to: 'sessions#create'
-  delete '/logout',  to: 'sessions#destroy'
+  post   '/customer_login',   to: 'sessions#create'
+  delete '/customer_logout',  to: 'sessions#destroy'
   resources :customers
+
+  get    '/admin_signup',  to: 'admins#new'
+  get    '/admin_login',   to: 'sessions2#new'
+  post   '/admin_login',   to: 'sessions2#create'
+  delete '/admin_logout',  to: 'sessions2#destroy'
+  resources :admins
+
+  get    '/super_admin_signup',  to: 'super_admins#new'
+  get    '/super_admin_login',   to: 'sessions3#new'
+  post   '/super_admin_login',   to: 'sessions3#create'
+  delete '/super_admin_logout',  to: 'sessions3#destroy'
+  resources :super_admins
 
 
   resources :customers do

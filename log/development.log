@@ -1229,3 +1229,581 @@ Processing by SessionsController#new as HTML
 Completed 200 OK in 23ms (Views: 20.6ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 20:44:33 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 42ms (Views: 39.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 20:44:38 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 27ms (Views: 20.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 20:44:42 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.2ms)
+  Rendered customers/new.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 29ms (Views: 24.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 20:46:52 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 22ms (Views: 19.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 20:59:14 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 64ms (Views: 61.7ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:04:31 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 28ms (Views: 26.3ms)
+
+
+Started POST "/login" for 127.0.0.1 at 2017-09-25 21:04:34 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"XVQUP3yd4VcqG6Enqn80GjfdpSLINOCSkF4/3PypeOjpZ5GHK01T4Vu9rgx0ucns1VQXaAlMR7UY3PFgqPGt4g==", "session"=>{"email"=>"jj@126.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "jj@126.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/customers/1
+Completed 302 Found in 66ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/customers/1" for 127.0.0.1 at 2017-09-25 21:04:34 -0400
+Processing by CustomersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering customers/show.html.erb within layouts/application
+  Rendered customers/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 25ms (Views: 22.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:04:40 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.3ms)
+  Rendered customers/new.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 29ms (Views: 24.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:06:36 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 56ms (Views: 54.2ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:08:03 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 25ms (Views: 23.7ms)
+
+
+Started GET "/super_admin_login" for 127.0.0.1 at 2017-09-25 21:08:07 -0400
+Processing by Sessions3Controller#new as HTML
+  Rendering sessions3/new.html.erb within layouts/application
+  Rendered sessions3/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 26ms (Views: 24.8ms)
+
+
+Started GET "/super_admin_login" for 127.0.0.1 at 2017-09-25 21:08:19 -0400
+Processing by Sessions3Controller#new as HTML
+  Rendering sessions3/new.html.erb within layouts/application
+  Rendered sessions3/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 26ms (Views: 23.8ms)
+
+
+Started POST "/login" for 127.0.0.1 at 2017-09-25 21:08:22 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8Pw4Hsf+FRrKLMEoUslc8Y8Q2/HXuyMHc8gmeQJKU4REz72mkC6nrLuKzgOMD6EHbZlpuxbDhCD7SujFVhKGjg==", "session"=>{"email"=>"jj@126.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "jj@126.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/customers/1
+Completed 302 Found in 66ms (ActiveRecord: 0.8ms)
+
+
+Started GET "/customers/1" for 127.0.0.1 at 2017-09-25 21:08:22 -0400
+Processing by CustomersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering customers/show.html.erb within layouts/application
+  Rendered customers/show.html.erb within layouts/application (0.8ms)
+Completed 200 OK in 24ms (Views: 21.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:08:28 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.0ms)
+  Rendered customers/new.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 30ms (Views: 27.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:13:09 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 23ms (Views: 22.2ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:13:11 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.2ms)
+  Rendered customers/new.html.erb within layouts/application (3.3ms)
+Completed 200 OK in 38ms (Views: 24.0ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:20:40 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 24ms (Views: 22.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:20:43 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 27ms (Views: 25.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/super_admin_login" for 127.0.0.1 at 2017-09-25 21:20:45 -0400
+Processing by Sessions3Controller#new as HTML
+  Rendering sessions3/new.html.erb within layouts/application
+  Rendered sessions3/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 30ms (Views: 28.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:20:50 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.0ms)
+  Rendered customers/new.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 30ms (Views: 27.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:20:53 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 25ms (Views: 22.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:20:54 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.4ms)
+  Rendered customers/new.html.erb within layouts/application (4.3ms)
+Completed 200 OK in 31ms (Views: 28.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:21:11 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.3ms)
+Completed 200 OK in 26ms (Views: 24.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:21:13 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.0ms)
+  Rendered customers/new.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 30ms (Views: 26.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customers" for 127.0.0.1 at 2017-09-25 21:24:26 -0400
+Processing by CustomersController#index as HTML
+  Rendering customers/index.html.erb within layouts/application
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.8ms)
+Completed 200 OK in 32ms (Views: 29.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/customers/new" for 127.0.0.1 at 2017-09-25 21:24:29 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.1ms)
+  Rendered customers/new.html.erb within layouts/application (3.8ms)
+Completed 200 OK in 32ms (Views: 28.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:28:22 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 30ms (Views: 28.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:28:24 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 29ms (Views: 27.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:28:27 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (1.9ms)
+  Rendered customers/new.html.erb within layouts/application (3.9ms)
+Completed 200 OK in 31ms (Views: 27.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:30:35 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.7ms)
+Completed 200 OK in 28ms (Views: 25.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/signup" for 127.0.0.1 at 2017-09-25 21:30:38 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.6ms)
+  Rendered customers/new.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 36ms (Views: 32.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin/signup" for 127.0.0.1 at 2017-09-25 21:32:24 -0400
+  
+ActionController::RoutingError (No route matches [GET] "/admin/signup"):
+  
+actionpack (5.1.4) lib/action_dispatch/middleware/debug_exceptions.rb:63:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.1.4) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.1.4) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.1.4) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/request_id.rb:25:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.1.4) lib/active_support/cache/strategy/local_cache_middleware.rb:27:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.1.4) lib/action_dispatch/middleware/static.rb:125:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.1.4) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+Started GET "/admins/signup" for 127.0.0.1 at 2017-09-25 21:33:24 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"signup"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 0], ["LIMIT", 1]]
+Completed 404 Not Found in 6ms (ActiveRecord: 0.8ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Admin with 'id'=signup):
+  
+app/controllers/admins_controller.rb:103:in `set_admin'
+Started GET "/admins_signup" for 127.0.0.1 at 2017-09-25 21:34:06 -0400
+Processing by AdminsController#new as HTML
+  Rendering admins/new.html.erb within layouts/application
+  Rendered admins/_form.html.erb (2.7ms)
+  Rendered admins/new.html.erb within layouts/application (4.9ms)
+Completed 200 OK in 40ms (Views: 30.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/admins" for 127.0.0.1 at 2017-09-25 21:36:19 -0400
+Processing by AdminsController#index as HTML
+  Rendering admins/index.html.erb within layouts/application
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins"[0m
+  Rendered admins/index.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 32ms (Views: 27.1ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:36:24 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 29ms (Views: 27.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:36:27 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 29ms (Views: 27.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:42:06 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 29ms (Views: 28.0ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:42:09 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (153.1ms)
+Completed 500 Internal Server Error in 157ms
+
+
+  
+ActionView::Template::Error (undefined local variable or method `signup_path' for #<#<Class:0x007fd3d00b60c0>:0x007fd3d00b4040>):
+    14:         <%= f.submit "log in", class: "btn btn-primary" %>
+    15:     <% end %>
+    16: 
+    17:     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    18:   </div>
+    19: </div>
+  
+app/views/sessions/new.html.erb:17:in `_app_views_sessions_new_html_erb___3550920125491972490_70273852617940'
+Started GET "/super_admin_login" for 127.0.0.1 at 2017-09-25 21:42:12 -0400
+Processing by Sessions3Controller#new as HTML
+  Rendering sessions3/new.html.erb within layouts/application
+  Rendered sessions3/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 24ms (Views: 22.7ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:42:14 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (146.1ms)
+Completed 500 Internal Server Error in 151ms
+
+
+  
+ActionView::Template::Error (undefined local variable or method `signup_path' for #<#<Class:0x007fd3d00b60c0>:0x007fd3cde56ac0>):
+    14:         <%= f.submit "log in", class: "btn btn-primary" %>
+    15:     <% end %>
+    16: 
+    17:     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    18:   </div>
+    19: </div>
+  
+app/views/sessions/new.html.erb:17:in `_app_views_sessions_new_html_erb___3550920125491972490_70273834614020'
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:42:42 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 39ms (Views: 37.6ms)
+
+
+Started GET "/customer_signup" for 127.0.0.1 at 2017-09-25 21:42:44 -0400
+Processing by CustomersController#new as HTML
+  Rendering customers/new.html.erb within layouts/application
+  Rendered customers/_form.html.erb (2.0ms)
+  Rendered customers/new.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 45ms (Views: 30.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:42:47 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 38ms (Views: 35.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_signup" for 127.0.0.1 at 2017-09-25 21:42:48 -0400
+Processing by AdminsController#new as HTML
+  Rendering admins/new.html.erb within layouts/application
+  Rendered admins/_form.html.erb (3.0ms)
+  Rendered admins/new.html.erb within layouts/application (4.7ms)
+Completed 200 OK in 53ms (Views: 40.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/super_admin_login" for 127.0.0.1 at 2017-09-25 21:42:50 -0400
+Processing by Sessions3Controller#new as HTML
+  Rendering sessions3/new.html.erb within layouts/application
+  Rendered sessions3/new.html.erb within layouts/application (2.0ms)
+Completed 200 OK in 36ms (Views: 34.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/super_admin_signup" for 127.0.0.1 at 2017-09-25 21:42:51 -0400
+Processing by SuperAdminsController#new as HTML
+Completed 500 Internal Server Error in 3ms (ActiveRecord: 0.1ms)
+
+
+  
+ActiveRecord::StatementInvalid (Could not find table 'super_admins'):
+  
+app/controllers/super_admins_controller.rb:17:in `new'
+Started GET "/super_admin_login" for 127.0.0.1 at 2017-09-25 21:42:53 -0400
+Processing by Sessions3Controller#new as HTML
+  Rendering sessions3/new.html.erb within layouts/application
+  Rendered sessions3/new.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 24ms (Views: 22.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:42:58 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 27ms (Views: 24.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_signup" for 127.0.0.1 at 2017-09-25 21:43:00 -0400
+Processing by AdminsController#new as HTML
+  Rendering admins/new.html.erb within layouts/application
+  Rendered admins/_form.html.erb (1.8ms)
+  Rendered admins/new.html.erb within layouts/application (4.2ms)
+Completed 200 OK in 31ms (Views: 27.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/super_admin_login" for 127.0.0.1 at 2017-09-25 21:43:07 -0400
+Processing by Sessions3Controller#new as HTML
+  Rendering sessions3/new.html.erb within layouts/application
+  Rendered sessions3/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 26ms (Views: 24.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:43:10 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 28ms (Views: 26.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_signup" for 127.0.0.1 at 2017-09-25 21:43:11 -0400
+Processing by AdminsController#new as HTML
+  Rendering admins/new.html.erb within layouts/application
+  Rendered admins/_form.html.erb (2.6ms)
+  Rendered admins/new.html.erb within layouts/application (4.4ms)
+Completed 200 OK in 38ms (Views: 35.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-25 21:43:22 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"UlAk8VdDGe+/AZk4qHthofemMZ/0DL+z50Shbpm22AzmY6FJAJOrWc6nlhN2vZxXFS+D1TV0GJRvxm/Sze4NBg==", "session2"=>{"email"=>"jj@126.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/controllers/sessions2_controller.rb:7:in `create'
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:44:28 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 23ms (Views: 21.6ms)
+
+
+Started POST "/customer_login" for 127.0.0.1 at 2017-09-25 21:44:29 -0400
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"mHr7ugdoY/hBKeYSaldOW2K1tmblwe2R1MHxkM4mPPgsSX4CULjRTjCP6Tm0kbOtgDwELCS5SrZcQz8smn7p8g==", "session"=>{"email"=>"jj@126.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "jj@126.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/customers/1
+Completed 302 Found in 72ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/customers/1" for 127.0.0.1 at 2017-09-25 21:44:29 -0400
+Processing by CustomersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering customers/show.html.erb within layouts/application
+  Rendered customers/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 25ms (Views: 22.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/customer_login" for 127.0.0.1 at 2017-09-25 21:44:30 -0400
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 30ms (Views: 28.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:44:32 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 33ms (Views: 31.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_signup" for 127.0.0.1 at 2017-09-25 21:44:33 -0400
+Processing by AdminsController#new as HTML
+  Rendering admins/new.html.erb within layouts/application
+  Rendered admins/_form.html.erb (1.7ms)
+  Rendered admins/new.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 33ms (Views: 23.8ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/admins" for 127.0.0.1 at 2017-09-25 21:44:46 -0400
+Processing by AdminsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"l6E7jeTtipqlO8HeKkxf+VuWcG8QM3d+2ZTiZbkWhwiOCC+A8qXRK6X890Jya3B/m0p7+2Wt6gxlgWhlvC2Z9w==", "admin"=>{"name"=>"aa", "email"=>"aa@a.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create Admin"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdmin Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "admins" WHERE LOWER("admins"."email") = LOWER(?) LIMIT ?[0m  [["email", "aa@a.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "admins" ("name", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "aa"], ["email", "aa@a.com"], ["password_digest", "$2a$10$KV96JjhcxO76rs6UIucCmOYwwao1pZLzOo0YZxVvcA1K7e8mqhv7y"], ["created_at", "2017-09-26 01:44:46.401518"], ["updated_at", "2017-09-26 01:44:46.401518"]]
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/admins/1
+Completed 302 Found in 64ms (ActiveRecord: 2.2ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-25 21:44:46 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 25ms (Views: 23.0ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/admins/1/all_customers" for 127.0.0.1 at 2017-09-25 21:44:49 -0400
+Processing by AdminsController#all_customers as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/all_customers.html.erb within layouts/application
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered admins/all_customers.html.erb within layouts/application (1.4ms)
+Completed 200 OK in 29ms (Views: 24.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-25 21:44:52 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.6ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (0.9ms)
+Completed 200 OK in 30ms (Views: 25.9ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/admins/new" for 127.0.0.1 at 2017-09-25 21:44:56 -0400
+Processing by AdminsController#new as HTML
+  Rendering admins/new.html.erb within layouts/application
+  Rendered admins/_form.html.erb (2.6ms)
+  Rendered admins/new.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 38ms (Views: 36.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-25 21:45:02 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.6ms)
+Completed 200 OK in 31ms (Views: 28.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-25 21:45:11 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"ymDRIXTjwgT3XqpkIrmyAj40Ppg3ybcrnyRYglD3DF80LEks8xREcJNI430LXS8br8cDkikcucYxQA2EItIxUA==", "session2"=>{"email"=>"aa@a.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/controllers/sessions2_controller.rb:7:in `create'
