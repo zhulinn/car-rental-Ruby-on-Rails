@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'sessions/new'
+
   resources :admins do
 
     collection do
@@ -28,9 +30,16 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  root 'customers#index'
+  #root 'customers#index'
 
   delete '/admins/:id_admin/show_customer/:id_customer', to: 'customers#destroy'
+
+  get    '/signup',  to: 'customers#new'
+  get    '/customer_login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
+  resources :customers
+
 
   resources :customers do
     collection do
