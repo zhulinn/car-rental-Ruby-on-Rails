@@ -21,9 +21,4 @@
 /yarn-error.log
 
 .byebug_history
-**/.idea/workspace.xml
-**/.idea/tasks.xml
-.idea/dataSources/a7499f3a-3caf-4738-a2b0-9070bc57cd09/_src_/
-.idea/dataSources/a7499f3a-3caf-4738-a2b0-9070bc57cd09/_staging_/
-.idea/inspectionProfiles/
-.idea/workspace.xml
+.idea/
