@@ -21,7 +21,7 @@
 </p>
 
 <%= link_to 'Edit My Profile', edit_customer_path(@customer) %> |
-<%= link_to 'Log out', customer_logout_path, method: :delete %> |
+<%= link_to 'Log out', logout_path, method: :delete %> |
 <%= link_to 'Rent a car', search_customer_path(@customer)%> |
 <% unless @customer.recordid.nil? %>
     <% if @customer.recordid < 0 %>

@@ -1,13 +1,25 @@
 class SessionsController < ApplicationController
 
   def new
+    if logged_in?
+      if current_authority=="SuperAdmin"
+        redirect_to super_admin_url(current_user)
+      elsif current_authority=="Admin"
+        redirect_to admin_url(current_user)
+      else
+        redirect_to customer_url(current_user)
+      end
+    end
   end
 
   def create
-    user = Customer.find_by(email: params[:session][:email].downcase)
+    user = SuperAdmin.find_by(email: params[:session][:email].downcase)
+    user = Admin.find_by(email: params[:session][:email].downcase) if user==nil
+    user = Customer.find_by(email: params[:session][:email].downcase) if user==nil
+    authority=user.class.to_s unless user==nil
     if user && user.authenticate(params[:session][:password])
       # 登入用户，然后重定向到用户的资料页面
-      log_in user
+      log_in user, authority
       redirect_to user
     else
       flash.now[:danger] = 'Invalid email/password combination'
@@ -17,7 +29,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to "/index"
-
+    redirect_to root_url
   end
 end

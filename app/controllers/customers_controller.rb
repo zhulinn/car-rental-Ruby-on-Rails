@@ -1,9 +1,17 @@
 class CustomersController < ApplicationController
   before_action :set_customer, except: [:index, :new, :create]
-  before_action :set_car, only: [:reserve, :return, :checkout, :show_car]
+  #before_action :set_car, only: [:reserve, :return, :checkout, :show_car]
+  before_action :back_if_not_logged_in, except: [:new, :create, :destroy]
+  before_action :back_if_customer, only: [:index, :new, :create]
+  before_action :back_if_not_self_customer, only: [:show, :edit, :update]
   # GET /customers
   # GET /customers.json
   def index
+    if !logged_in?
+      redirect_to login_url
+    elsif current_authority=="Customer"
+      redirect_to customer_url(current_user)
+    end
     @customers = Customer.all
   end
   def search
@@ -32,9 +40,18 @@ class CustomersController < ApplicationController
   end
   # GET /customers/new
   def new
+    if logged_in?
+      if current_authority=="Customer"
+        redirect_to customer_url(current_user)
+      elsif current_authority=="Admin"
+        redirect_to admin_url(current_user)
+      else
+        redirect_to super_admin_url(current_user)
+      end
+    end
     @customer = Customer.new
   end
-
+=begin
   def checkout
     @car.update(status: 'Checked out')
 
@@ -82,30 +99,8 @@ class CustomersController < ApplicationController
     end
   end
 
-  def reserve
-    require "date"
-    starttime = DateTime.new(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i, params[:start_date][:hour].to_i, params[:start_date][:minute].to_i,59,'-4')
 
-    if starttime  < Time.now || starttime > Time.now + 7.days
-      respond_to do |format|
-        format.html { redirect_to showcar_customer_customer_path(@car), notice: 'Start Time is not valid.' }
-        format.json { head :no_content }
-      end
-    else
-      @car.update(status: 'Reserved')
-      @@customer.update_attribute(:recordid, "#{-1 - @car.id}")
-      ########################################
-      #  定时任务  endtime  change to available,
-      # 借车 中断定时
-      ########################################
-      respond_to do |format|
-        format.html { redirect_to showcar_customer_customer_path(@car), notice: 'Car was successfully reserved.' }
-        format.json { head :no_content }
-      end
-    end
-
-  end
-
+=end
   # GET /customers/1/edit
   def edit
   end
@@ -154,7 +149,7 @@ class CustomersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_customer
     # if @customer.nil?
-    unless params[:id]==nil
+    if params[:id]!=nil
       @customer = Customer.find(params[:id])
     else
       @customer = Customer.find(params[:id_customer])
@@ -164,7 +159,7 @@ class CustomersController < ApplicationController
   end
 
   def set_car
-    unless params[:id]==nil
+    if params[:id]!=nil
       @car = Car.find(params[:id])
     else
       @car = Car.find(params[:id_car])
