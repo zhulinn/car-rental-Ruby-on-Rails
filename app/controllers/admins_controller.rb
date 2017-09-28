@@ -1,6 +1,9 @@
 class AdminsController < ApplicationController
   #skip_before_action :verify_authenticity_token
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin, only: [:show, :edit, :update, :destroy, :all_customers]
+  before_action :set_admin_comb, except: [:show, :edit, :update, :destroy, :all_customers]
+  before_action :set_customer_comb, only: [:show_customer, :show_car_customer, :edit_customer, :update_customer, :destory_customer, :search_customer, :reserve_customer, :checkout_customer, :return_customer, :history_customer]
+  before_action :set_car_comb, only: [:show_car_customer, ]
 
   # GET /admins
   # GET /admins.json
@@ -198,11 +201,27 @@ class AdminsController < ApplicationController
     @records = @customer.records
   end
 
+  def new_car
+    @admin=Admin.find(params[:id_customer])
+    @car=Car.find(params[:id_car])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
       @admin = Admin.find(params[:id])
-      @@admin=@admin
+    end
+
+    def set_admin_comb
+      @admin=Admin.find(params[:id_admin])
+    end
+
+    def set_customer_comb
+      @customer=Customer.find(params[:id_customer])
+    end
+
+    def set_car_comb
+      @car=Car.find(params[:id_car])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

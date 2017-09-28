@@ -3818,3 +3818,107 @@ Redirected to http://localhost:3000/index
 Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
 
 
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-26 12:29:55 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (3.4ms)
+Completed 200 OK in 74ms (Views: 68.8ms)
+
+
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-26 12:38:31 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"/HrgBQqk9McF8lIWdWmA8wGw85efhOP+IEkcHbZzkWGIdPltHssGtC5PD48nOFgmVNnUjRMDLGMRGBoL2GHxfQ==", "session2"=>{"email"=>"admin1@email.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mAdmin Load (0.5ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "admin1@email.com"], ["LIMIT", 1]]
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 108ms (Views: 33.1ms | ActiveRecord: 1.4ms)
+
+
+Started POST "/admin_login" for 127.0.0.1 at 2017-09-26 12:38:41 -0400
+Processing by Sessions2Controller#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"m1xkYkefjEcL0psqHMwULbqZX6JQopCiJ6K/CEScGh3vUn0KU/B+NCBvxrNOncz47/B4uNwlXz8W87keKo56AQ==", "session2"=>{"email"=>"admin1@email.com", "password"=>"[FILTERED]"}, "commit"=>"log in"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."email" = ? LIMIT ?[0m  [["email", "admin1@email.com"], ["LIMIT", 1]]
+Redirected to http://localhost:3000/admins/1
+Completed 302 Found in 54ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-26 12:38:41 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (1.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+Completed 404 Not Found in 3ms (ActiveRecord: 1.1ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Admin with 'id'=):
+  
+app/controllers/admins_controller.rb:210:in `set_admin'
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-26 12:39:06 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.1ms)
+Completed 200 OK in 32ms (Views: 30.9ms)
+
+
+Started GET "/admin_login" for 127.0.0.1 at 2017-09-26 12:39:09 -0400
+Processing by Sessions2Controller#new as HTML
+  Rendering sessions2/new.html.erb within layouts/application
+  Rendered sessions2/new.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 27ms (Views: 25.9ms)
+
+
+Started GET "/admins/1/all_customers" for 127.0.0.1 at 2017-09-26 12:39:10 -0400
+Processing by AdminsController#all_customers as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/all_customers.html.erb within layouts/application
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers"[0m
+  Rendered admins/all_customers.html.erb within layouts/application (8.4ms)
+Completed 200 OK in 55ms (Views: 39.8ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/admins" for 127.0.0.1 at 2017-09-26 12:39:11 -0400
+Processing by AdminsController#index as HTML
+  Rendering admins/index.html.erb within layouts/application
+  [1m[36mAdmin Load (0.2ms)[0m  [1m[34mSELECT "admins".* FROM "admins"[0m
+  Rendered admins/index.html.erb within layouts/application (9.9ms)
+Completed 200 OK in 39ms (Views: 37.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/admins/" for 127.0.0.1 at 2017-09-26 12:39:11 -0400
+Processing by AdminsController#index as HTML
+  Rendering admins/index.html.erb within layouts/application
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT "admins".* FROM "admins"[0m
+  Rendered admins/index.html.erb within layouts/application (1.2ms)
+Completed 200 OK in 27ms (Views: 25.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-26 12:39:12 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 28ms (Views: 26.3ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-26 12:39:13 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering admins/show.html.erb within layouts/application
+  Rendered admins/show.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 38ms (Views: 36.5ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/admins/1" for 127.0.0.1 at 2017-09-26 12:39:23 -0400
+Processing by AdminsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdmin Load (0.1ms)[0m  [1m[34mSELECT  "admins".* FROM "admins" WHERE "admins"."id" = ? LIMIT ?[0m  [["id", nil], ["LIMIT", 1]]
+Completed 404 Not Found in 4ms (ActiveRecord: 0.6ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Admin with 'id'=):
+  
+app/controllers/admins_controller.rb:210:in `set_admin'
