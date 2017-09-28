@@ -60,7 +60,7 @@ Rails.application.routes.draw do
   delete '/super_admin_logout',  to: 'sessions3#destroy'
   resources :super_admins
 
-
+  get '/customers/:id_customer/show_car/:id_car', to: 'customers#show_car', as: 'show_customer_car'
   resources :customers do
     collection do
 
@@ -71,7 +71,7 @@ Rails.application.routes.draw do
       get 'return'
       get 'reserve'
       get 'search'
-      get 'showcar_customer'
+      #get 'showcar_customer'
       get 'myhistory'
     end
   end

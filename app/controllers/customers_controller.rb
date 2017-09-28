@@ -1,7 +1,6 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  before_action :set_car, only: [:reserve, :return, :checkout,]
-
+  before_action :set_customer, except: [:index, :new, :create]
+  before_action :set_car, only: [:reserve, :return, :checkout, :show_car]
   # GET /customers
   # GET /customers.json
   def index
@@ -23,13 +22,13 @@ class CustomersController < ApplicationController
   def show
   end
 
-  def showcar_customer
-    @car = Car.find(params[:id])
-    @customer = @@customer
+  def show_car
+    #@car = Car.find(params[:id])
+    #@customer = @@customer
   end
 
   def myhistory
-    @records = @@customer.records
+    @records = @customer.records
   end
   # GET /customers/new
   def new
@@ -155,14 +154,21 @@ class CustomersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_customer
     # if @customer.nil?
-    @customer = Customer.find(params[:id])
-
-    @@customer = @customer
+    unless params[:id]==nil
+      @customer = Customer.find(params[:id])
+    else
+      @customer = Customer.find(params[:id_customer])
+    end
+    #@@customer = @customer
     #end
   end
 
   def set_car
-    @car = Car.find(params[:id])
+    unless params[:id]==nil
+      @car = Car.find(params[:id])
+    else
+      @car = Car.find(params[:id_car])
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

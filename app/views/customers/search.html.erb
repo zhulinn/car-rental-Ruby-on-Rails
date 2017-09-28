@@ -26,7 +26,7 @@
         <td><%= car.style %></td>
         <td><%= car.location %></td>
         <td><%= car.status %></td>
-        <td><%= link_to 'Show', showcar_customer_customer_path(car) %></td>
+        <td><%= link_to 'Show', show_customer_car_path(@customer,car) %></td>
        <!-- <% if car.status == "Reserved" || car.status == "Available" %>
             <% if car.status == "Available" %>
                  <td><%= link_to 'Reserve', reserve_customer_path(car) %></td>

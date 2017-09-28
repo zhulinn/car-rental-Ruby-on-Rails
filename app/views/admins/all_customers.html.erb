@@ -18,7 +18,7 @@
         <td><%= customer.name %></td>
         <td><%= customer.email %></td>
         <td><%= customer.charge %></td>
-        <td><%= link_to 'Show', show_admin_customer_path(@admin.id,customer.id) %></td>
+        <td><%= link_to 'Show', show_admin_customer_path(@admin,customer) %></td>
         <td><%= link_to 'Destroy', customer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

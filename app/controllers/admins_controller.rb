@@ -1,9 +1,8 @@
 class AdminsController < ApplicationController
   #skip_before_action :verify_authenticity_token
-  before_action :set_admin, only: [:show, :edit, :update, :destroy, :all_customers]
-  before_action :set_admin_comb, except: [:show, :edit, :update, :destroy, :all_customers]
-  before_action :set_customer_comb, only: [:show_customer, :show_car_customer, :edit_customer, :update_customer, :destory_customer, :search_customer, :reserve_customer, :checkout_customer, :return_customer, :history_customer]
-  before_action :set_car_comb, only: [:show_car_customer, ]
+  before_action :set_admin, except: [:new, :create, :index]
+  before_action :set_customer, only: [:show_customer, :show_car_customer, :edit_customer, :update_customer, :destory_customer, :search_customer, :reserve_customer, :checkout_customer, :return_customer, :history_customer]
+  before_action :set_car, only: [:show_car_customer, ]
 
   # GET /admins
   # GET /admins.json
@@ -17,8 +16,8 @@ class AdminsController < ApplicationController
   end
 
   def show_customer
-    @admin=Admin.find(params[:id_admin])
-    @customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
+    #@customer=Customer.find(params[:id_customer])
   end
 
   # GET /admins/new
@@ -72,17 +71,17 @@ class AdminsController < ApplicationController
 
   def all_customers
     @customers=Customer.all
-    @admin=Admin.find(params[:id])
+    #@admin=Admin.find(params[:id])
   end
 
   def edit_customer
-    @customer=Customer.find(params[:id_customer])
-    @admin=Admin.find(params[:id_admin])
+    #@customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
   end
 
   def update_customer
-    @customer=Customer.find(params[:id_customer])
-    @admin=Admin.find(params[:id_admin])
+    #@customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
     @customer.password_no_deed
     if @customer.update_attributes(params[:customer].permit(:name, :email))
       redirect_to show_admin_customer_url(@admin.id, @customer.id)
@@ -94,8 +93,8 @@ class AdminsController < ApplicationController
   end
 
   def destory_customer
-    @customer=Customer.find(params[:id_customer])
-    @admin=Admin.find(params[:id_admin])
+    #@customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
     @customer.destroy
     redirect_to all_customers_admin_path(@admin), notice: 'Customer was successfully destroyed.'
   end
@@ -112,9 +111,9 @@ class AdminsController < ApplicationController
   end
 
   def reserve_customer
-    @car=Car.find(params[:id_car])
-    @customer=Customer.find(params[:id_customer])
-    @admin=Admin.find(params[:id_admin])
+    #@car=Car.find(params[:id_car])
+    #@customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
     require "date"
     starttime = DateTime.new(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i, params[:start_date][:hour].to_i, params[:start_date][:minute].to_i,59,'-4')
 
@@ -138,9 +137,9 @@ class AdminsController < ApplicationController
   end
 
   def checkout_customer
-    @car=Car.find(params[:id_car])
-    @customer=Customer.find(params[:id_customer])
-    @admin=Admin.find(params[:id_admin])
+    #@car=Car.find(params[:id_car])
+    #@customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
     @car.update(status: 'Checked out')
     arecord = Record.new()
     arecord.customer= @customer
@@ -162,9 +161,9 @@ class AdminsController < ApplicationController
   end
 
   def return_customer
-    @car=Car.find(params[:id_car])
-    @customer=Customer.find(params[:id_customer])
-    @admin=Admin.find(params[:id_admin])
+    #@car=Car.find(params[:id_car])
+    #@customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
     @car.update(status: 'Available')
     now = Time.current
     @record = Record.find(@customer.recordid)
@@ -190,37 +189,32 @@ class AdminsController < ApplicationController
   end
 
   def show_car_customer
-    @car = Car.find(params[:id_car])
-    @customer = Customer.find(params[:id_customer])
-    @admin=Admin.find(params[:id_admin])
+    #@car = Car.find(params[:id_car])
+    #@customer = Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
   end
 
   def history_customer
-    @admin=Admin.find(params[:id_admin])
-    @customer=Customer.find(params[:id_customer])
+    #@admin=Admin.find(params[:id_admin])
+    #@customer=Customer.find(params[:id_customer])
     @records = @customer.records
-  end
-
-  def new_car
-    @admin=Admin.find(params[:id_customer])
-    @car=Car.find(params[:id_car])
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
-      @admin = Admin.find(params[:id])
+      unless params[:id]==nil
+        @admin = Admin.find(params[:id])
+      else
+        @admin=Admin.find(params[:id_admin])
+      end
     end
 
-    def set_admin_comb
-      @admin=Admin.find(params[:id_admin])
-    end
-
-    def set_customer_comb
+    def set_customer
       @customer=Customer.find(params[:id_customer])
     end
 
-    def set_car_comb
+    def set_car
       @car=Car.find(params[:id_car])
     end
 
