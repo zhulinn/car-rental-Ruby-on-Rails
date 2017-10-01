@@ -3,8 +3,8 @@ class CreateRecords < ActiveRecord::Migration[5.1]
     create_table :records do |t|
       t.references :customer, foreign_key: true
       t.references :car, foreign_key: true
-      t.timestamp :start
-      t.timestamp :end
+      t.time :start
+      t.time :end
       t.string :status
       t.integer :hours
 

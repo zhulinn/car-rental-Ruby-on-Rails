@@ -2,6 +2,18 @@
 
 <h1>Cars</h1>
 
+<h3>Custom Search</h3>
+
+<%= form_tag(cars_path, method: "get") do %>
+    <%= label_tag(:value, "Search for:") %>
+    <%= select_tag :attribute, options_for_select([ 'Location','Model','Manufacturer','Style' ,'Status']) %>
+    <%= text_field_tag(:value) %>
+    <%= submit_tag("Search") %>
+<% end %>
+
+<br>
+<br>
+
 <table>
   <thead>
     <tr>
@@ -27,13 +39,16 @@
         <td><%= car.location %></td>
         <td><%= car.status %></td>
         <td><%= link_to 'Show', car %></td>
+        <% if current_authority != $customer %>
         <td><%= link_to 'Edit', edit_car_path(car) %></td>
         <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if current_authority != $customer %>
 <%= link_to 'New Car', new_car_path %>
+<% end %>

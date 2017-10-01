@@ -34,6 +34,45 @@
   <strong>Status:</strong>
   <%= @car.status %>
 </p>
+<% if current_authority != $customer %>
+    <%= link_to 'Edit', edit_car_path(@car) %>
+<% end %>
+<br><br>
 
-<%= link_to 'Edit', edit_car_path(@car) %> |
+<% if @car.status == $available %>
+    <% if current_authority != $customer %>
+        <%= form_for @car, url: {action: 'action'} do |f| %>
+            <%= f.label :customer_id, 'Customer' %>
+            <%= collection_select :customer, :customer_id, Customer.all, :id, :email %>
+            <%= submit_tag 'Reserve', name: 'reserve_btn' %>
+            <%= submit_tag 'Check Out', name: 'checkout_btn' %>
+        <% end %>
+    <% else %>
+        <%= link_to 'Reserve', schedule_car_path(@car) %>|
+        <%= link_to 'Check Out', checkout_car_path(@car) %>
+    <% end %>
+<% elsif @car.status == $reserved %>
+    <% if current_authority != $customer %>
+        <%= form_for @car, url: {action: 'action'} do |f| %>
+            <%= f.label :customer_id %>
+            <%= f.collection_select :customer_id, Customer.all, :id, :email %>
+            <%= submit_tag 'Check Out', name: 'checkout_btn' %>
+            <%= submit_tag 'Cancel Reservation', name: 'cancel_btn' %>
+        <% end %>
+    <% else %>
+        <%= link_to 'Check Out', checkout_car_path(@car) %>|
+        <%= link_to 'Cancel Reservation', cancel_car_path(@car) %>
+    <% end %>
+<% else %>
+    <% if current_authority != $customer %>
+        <%= form_for @car, url: {action: 'action'} do |f| %>
+            <%= f.label :customer_id %>
+            <%= f.collection_select :customer_id, Customer.all, :id, :email %>
+            <%= submit_tag 'Return', name: 'return_btn' %>
+        <% end %>
+    <% else %>
+        <%= link_to 'Return', return_car_path(@car) %>
+    <% end %>
+<% end %>
+<br><br>
 <%= link_to 'Back', cars_path %>

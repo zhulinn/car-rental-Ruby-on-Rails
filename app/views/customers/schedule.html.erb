@@ -1,0 +1,10 @@
+<%= form_tag(reserve_car_path(@car)) do %>
+    <strong>Check Out Time:</strong>
+    <%= select_datetime  Time.now, prefix: :start_date %>
+    <%= "(*Within 7 days)" %>
+    <br>
+    <br>
+    <strong>Return Time:</strong>
+    <%= select_datetime  Time.now, prefix: :end_date %>
+    <%= submit_tag('Reserve') %>
+<% end %>

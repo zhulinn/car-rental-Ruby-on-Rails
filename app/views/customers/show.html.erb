@@ -20,17 +20,5 @@
   <%= @customer.charge %>
 </p>
 
-<%= link_to 'Edit My Profile', edit_customer_path(@customer) %> |
-<%= link_to 'Log out', logout_path, method: :delete %> |
-<%= link_to 'Rent a car', search_customer_path(@customer)%> |
-<% unless @customer.recordid.nil? %>
-    <% if @customer.recordid < 0 %>
-      <%  car = Car.find( -1- @customer.recordid )%>
-    <%else%>
-        <% car = Record.find(@customer.recordid).car %>
-    <%end%>
-    <%= link_to 'My car', showcar_customer_customer_path(car)%>|
-<% end %>
-
-<%= link_to 'My history', myhistory_customer_path(@customer)%>
+<%= link_to 'Edit My Profile', edit_customer_path(@customer) %>
 

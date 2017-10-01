@@ -83,7 +83,14 @@ Rails.application.routes.draw do
 
 
   resources :cars do
-
+    member do
+      get 'schedule'
+      post 'action'
+      post 'checkout'
+      post 'return'
+      post 'reserve'
+      post 'cancel'
+    end
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

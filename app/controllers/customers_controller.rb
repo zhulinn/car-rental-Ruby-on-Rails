@@ -9,7 +9,7 @@ class CustomersController < ApplicationController
   def index
     if !logged_in?
       redirect_to login_url
-    elsif current_authority=="Customer"
+    elsif current_authority == $customer
       redirect_to customer_url(current_user)
     end
     @customers = Customer.all
@@ -52,52 +52,9 @@ class CustomersController < ApplicationController
     @customer = Customer.new
   end
 =begin
-  def checkout
-    @car.update(status: 'Checked out')
-
-    arecord = Record.new()
-    arecord.customer= @@customer
-    arecord.car = @car
-    now = Time.current
-    arecord.save
-    @@customer.update_attribute(:recordid, "#{arecord.id}")
-    arecord.update_attribute(:start, "#{now}")
-
-    endtime = now +  params[:h].to_i.hour
-########################################
-#  Open Timer （call return method）  endtime  change to available
-
-########################################
-    respond_to do |format|
-      format.html { redirect_to showcar_customer_customer_path(@car), notice: 'Car was successfully checked out.' }
-      format.json { head :no_content }
-    end
-  end
-
-  def return
-    @car.update(status: 'Available')
-    now = Time.current
-    @record = Record.find(@@customer.recordid)
-    @record.update_attribute(:end, "#{now}")
-    hours = ((@record.end - @record.start) / 1.hour).ceil
-    @record.update_attribute(:hours, "#{hours}")
-    sum = 0
-    @@customer.records.each do |record|
-      unless record.hours.nil?
-        sum = record.hours * @car.rate
-      end
-    end
-    @@customer.update_attribute(:charge, "#{sum}")#delete current Record
-    @@customer.update_attribute(:recordid, "")#delete current Record
-
-    # End Timer
 
 
-    respond_to do |format|
-      format.html { redirect_to showcar_customer_customer_path(@car), notice: 'Car was successfully returned.' }
-      format.json { head :no_content }
-    end
-  end
+
 
 
 =end
@@ -108,10 +65,13 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
+    customer_params[:email].downcase!
     @customer = Customer.new(customer_params)
     @customer.charge = 0
+    @customer.status = $returned
     respond_to do |format|
       if @customer.save
+        log_in @customer, $customer
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
@@ -124,6 +84,7 @@ class CustomersController < ApplicationController
   # PATCH/PUT /customers/1
   # PATCH/PUT /customers/1.json
   def update
+    customer_params[:email].downcase!
     respond_to do |format|
       if @customer.update(customer_params)
         format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }

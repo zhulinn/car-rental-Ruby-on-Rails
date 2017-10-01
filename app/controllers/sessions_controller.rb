@@ -2,9 +2,9 @@ class SessionsController < ApplicationController
 
   def new
     if logged_in?
-      if current_authority=="SuperAdmin"
+      if current_authority == $superadmin
         redirect_to super_admin_url(current_user)
-      elsif current_authority=="Admin"
+      elsif current_authority == $admin
         redirect_to admin_url(current_user)
       else
         redirect_to customer_url(current_user)

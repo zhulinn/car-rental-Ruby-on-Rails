@@ -3,34 +3,45 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   #include Sessions2Helper
   #include Sessions3Helper
-  $customer="Customer"
-  $admin="Admin"
-  $superadmin="SuperAdmin"
+  $customer = 'Customer'
+  $admin = 'Admin'
+  $superadmin = 'SuperAdmin'
+  $available = 'Available'
+  $reserved = 'Reserved'
+  $checkedout = 'Checked Out'
+  $returned = 'Returned'
+  $cancelled = 'Cancelled'
 
   def back_if_not_logged_in
-    unless logged_in?
-      back_to_place
-    end
+    back_to_place unless logged_in?
   end
 
   def back_if_customer
-    if logged_in? and current_authority=="Customer"
-      back_to_place
-    end
+    back_to_place if logged_in? && current_authority == $customer
+  end
+
+  def back_if_admin
+    back_to_place if logged_in? && current_authority == $admin
   end
 
   def back_if_not_self_customer
-    if logged_in? and current_authority=="Customer" and current_user!=Customer.find(params[:id])
-      back_to_place
-    end
+    back_to_place if logged_in? && current_authority == $customer && current_user != Customer.find(params[:id])
+  end
+
+  def back_if_not_self_admin
+    back_to_place if logged_in? && current_authority == $admin && current_user != Admin.find(params[:id])
+  end
+
+  def back_if_not_self_supoer_admin
+    back_to_place if logged_in? && current_authority == $superadmin && current_user != SuperAdmin.find(params[:id])
   end
 
   def back_to_place
     if !logged_in?
       redirect_to login_url
-    elsif current_authority==$customer
+    elsif current_authority == $customer
       redirect_to customer_url(current_user)
-    elsif current_authority==$admin
+    elsif current_authority == $admin
       redirect_to admin_url(current_user)
     else
       redirect_to super_admin_url(current_user)

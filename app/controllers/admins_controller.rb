@@ -1,13 +1,17 @@
 class AdminsController < ApplicationController
   #skip_before_action :verify_authenticity_token
-  before_action :set_admin, except: [:new, :create, :index]
-  before_action :set_customer, only: [:show_customer, :show_car_customer, :edit_customer, :update_customer, :destory_customer, :search_customer, :reserve_customer, :checkout_customer, :return_customer, :history_customer]
-  before_action :set_car, only: [:show_car_customer, ]
+  before_action :set_admin, except: [:new, :create]
+  before_action :back_if_not_logged_in
+  before_action :back_if_customer
+  before_action :back_if_admin, only: [:destroy]
+  before_action :back_if_not_self_admin, only: [:edit, :update]
+  #before_action :set_customer, only: [:show_customer, :show_car_customer, :edit_customer, :update_customer, :destory_customer, :search_customer, :reserve_customer, :checkout_customer, :return_customer, :history_customer]
+  #before_action :set_car, only: [:show_car_customer, ]
 
   # GET /admins
   # GET /admins.json
   def index
-    @admins = Admin.all
+    @admins = Admin.where("email != ?", @admin.email)
   end
 
   # GET /admins/1
@@ -201,25 +205,14 @@ class AdminsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin
-      unless params[:id]==nil
-        @admin = Admin.find(params[:id])
-      else
-        @admin=Admin.find(params[:id_admin])
-      end
-    end
 
-    def set_customer
-      @customer=Customer.find(params[:id_customer])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin
+    @admin = Admin.find(params[:id])
+  end
 
-    def set_car
-      @car=Car.find(params[:id_car])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def admin_params
-      params.require(:admin).permit(:name, :email, :password, :password_confirmation)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def admin_params
+    params.require(:admin).permit(:name, :email, :password, :password_confirmation)
+  end
 end
