@@ -32,18 +32,13 @@ class CarsController < ApplicationController
 
   def action
     if params[:reserve_btn]
-      respond_to do |format|
-        format.html { redirect_to schedule_car_url(customer_id: @customer, id: @car) }
-        format.json { head :no_content }
-      end
-=begin
+      redirect_to schedule_car_path(customer_id: @customer, id: @car)
     elsif params[:checkout_btn]
       redirect_to checkout_car_url(customer_id: @customer, id: @car)
     elsif params[:return_btn]
       redirect_to return_car_url(customer_id: @customer, id: @car)
     else
       redirect_to cancel_car_url(customer_id: @customer, id: @car)
-=end
     end
   end
 
