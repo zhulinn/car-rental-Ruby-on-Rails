@@ -1,24 +1,60 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Car:</strong>
-  <%= @record.car %>
+  <strong>Car License:</strong>
+  <%= @record.car.license %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @record.user %>
+  <strong>Car Manufacturer:</strong>
+  <%= @record.car.manufacturer %>
 </p>
 
 <p>
-  <strong>Start:</strong>
+  <strong>Car Model:</strong>
+  <%= @record.car.model %>
+</p>
+
+<p>
+  <strong>Car Rate:</strong>
+  <%= @record.car.rate %>
+</p>
+
+<p>
+  <strong>Car Style:</strong>
+  <%= @record.car.style %>
+</p>
+
+<p>
+  <strong>Car Location:</strong>
+  <%= @record.car.location %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @record.customer.email %>
+</p>
+
+<p>
+  <strong>Start Time:</strong>
   <%= @record.start %>
 </p>
 
 <p>
-  <strong>End:</strong>
+  <strong>End Time:</strong>
   <%= @record.end %>
 </p>
 
-<%= link_to 'Edit', edit_record_path(@record) %> |
+<p>
+  <strong>Duration:</strong>
+  <%= @record.hours %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @record.status %>
+</p>
+<% if @record.car.status != $available %>
+    <%= link_to 'Show This Car', car_path(@record.car) %> |
+<% end %>
 <%= link_to 'Back', records_path %>

@@ -2,8 +2,6 @@
 
 <h1>Cars</h1>
 
-<h3>Custom Search</h3>
-
 <%= form_tag(cars_path, method: "get") do %>
     <%= label_tag(:value, "Search for:") %>
     <%= select_tag :attribute, options_for_select([ 'Location','Model','Manufacturer','Style' ,'Status']) %>

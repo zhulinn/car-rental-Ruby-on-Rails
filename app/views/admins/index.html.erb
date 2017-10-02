@@ -7,7 +7,6 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
-      <th>Password digest</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,10 +16,13 @@
       <tr>
         <td><%= admin.name %></td>
         <td><%= admin.email %></td>
-        <td><%= admin.password_digest %></td>
         <td><%= link_to 'Show', admin %></td>
-        <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if (current_authority == $admin && current_user.id == admin.id) || current_authority == $superadmin %>
+            <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
+        <% end %>
+        <% if (current_authority == $admin && current_user.id != admin.id) || current_authority == $superadmin %>
+            <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

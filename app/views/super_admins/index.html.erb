@@ -17,8 +17,9 @@
         <td><%= super_admin.name %></td>
         <td><%= super_admin.email %></td>
         <td><%= link_to 'Show', super_admin %></td>
-        <td><%= link_to 'Edit', edit_super_admin_path(super_admin) %></td>
-        <td><%= link_to 'Destroy', super_admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user == @super_admin %>
+           <td><%= link_to 'Edit', edit_super_admin_path(super_admin) %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

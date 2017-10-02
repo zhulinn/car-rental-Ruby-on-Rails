@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
-  #include Sessions2Helper
-  #include Sessions3Helper
+  include CustomersHelper
   $customer = 'Customer'
   $admin = 'Admin'
   $superadmin = 'SuperAdmin'

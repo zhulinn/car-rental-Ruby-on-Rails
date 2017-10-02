@@ -4,7 +4,23 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @records = Record.all
+    @records = if current_authority == $customer
+                 Record.where('customer_id = ?', current_user.id)
+               else
+                 Record.all
+               end
+    if params[:attribute] == 'license'
+      attribute = 'car_id'
+      target = Car.find_by(license: params[:value])
+    else
+      attribute = 'customer_id'
+      target = Customer.find_by(email: params[:value])
+    end
+    @records = if target.nil?
+                 @records
+               else
+                 @records.where("#{attribute} = ?", target.id)
+               end
   end
 
   # GET /records/1
@@ -62,6 +78,7 @@ class RecordsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_record
       @record = Record.find(params[:id])

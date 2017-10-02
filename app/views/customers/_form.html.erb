@@ -7,7 +7,7 @@
         <% if @customer.errors.any? %>
             <div id="error_explanation">
               <div class="alert alert-danger">
-                The form contains <%= pluralize(@customer.errors.count, "error") %>.
+                The form contains <%= pluralize(@customer.errors.count, 'error') %>.
               </div>
               <ul>
                 <% @customer.errors.full_messages.each do |msg| %>
@@ -21,12 +21,13 @@
 
         <%= f.label :email %>
         <%= f.email_field :email %>
+        <% if current_authority == $customer || !logged_in? %>
+            <%= f.label :password %>
+            <%= f.password_field :password %>
 
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-
-        <%= f.label :password_confirmation, "Confirmation" %>
-        <%= f.password_field :password_confirmation %>
+            <%= f.label :password_confirmation, 'Confirmation' %>
+            <%= f.password_field :password_confirmation %>
+        <% end %>
         <div class="field">
         </div>
         <div class="field">

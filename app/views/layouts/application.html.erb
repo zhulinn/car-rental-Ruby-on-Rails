@@ -10,21 +10,28 @@
 
   <body>
     <% if logged_in? %>
+      Hello, <%= current_user.name %>
+      <br><br>
+      <%= link_to 'My Profile', current_user %>|
+      <% if current_authority == $customer %>
+          <%= link_to 'My Record', records_path %>|
+      <% end %>
       <% if current_authority != $customer %>
-        <%= link_to "Customers", customers_path %> |
-        <%= link_to "Admins", admins_path %> |
+          <%= link_to 'Records', records_path %>|
+          <%= link_to 'Customers', customers_path %> |
+          <%= link_to 'Admins', admins_path %> |
       <% end %>
       <% if current_authority == $superadmin %>
-        <%= link_to "Super Admins", super_admins_path %>|
+          <%= link_to 'Super Admins', super_admins_path %>|
       <% end %>
-        <%= link_to "Cars", cars_path %>
+          <%= link_to 'Cars', cars_path %>
     <% end %>
   <br>
   <br>
     <%= yield %>
   <br><br>
     <% if logged_in? %>
-        <%= link_to "Log Out", logout_path, method: :delete %>
+        <%= link_to 'Log Out', logout_path, method: :delete %>
     <% end %>
   </body>
 </html>

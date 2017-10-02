@@ -19,6 +19,8 @@
   <strong>Charge:</strong>
   <%= @customer.charge %>
 </p>
-
-<%= link_to 'Edit My Profile', edit_customer_path(@customer) %>
-
+<% if current_authority == $customer %>
+    <%= link_to 'Edit My Profile', edit_customer_path(@customer) %>
+<% else %>
+    <%= link_to 'Edit', edit_customer_path(@customer) %>
+<% end %>

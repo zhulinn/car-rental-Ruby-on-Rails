@@ -9,6 +9,7 @@
   <strong>Email:</strong>
   <%= @super_admin.email %>
 </p>
-
-<%= link_to 'Edit', edit_super_admin_path(@super_admin) %> |
+<% if current_user == @super_admin %>
+    <%= link_to 'Edit', edit_super_admin_path(@super_admin) %> |
+<% end %>
 <%= link_to 'Back', super_admins_path %>

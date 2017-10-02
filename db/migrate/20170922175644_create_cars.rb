@@ -8,6 +8,7 @@ class CreateCars < ActiveRecord::Migration[5.1]
       t.string :style
       t.string :location
       t.string :status
+      t.integer :customer_id
 
       t.timestamps
     end

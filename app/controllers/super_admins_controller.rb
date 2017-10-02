@@ -1,5 +1,8 @@
 class SuperAdminsController < ApplicationController
   before_action :set_super_admin, only: [:show, :edit, :update, :destroy]
+  before_action :back_if_not_logged_in
+  before_action :back_if_customer
+  before_action :back_if_admin
 
   # GET /super_admins
   # GET /super_admins.json
@@ -24,6 +27,10 @@ class SuperAdminsController < ApplicationController
   # POST /super_admins
   # POST /super_admins.json
   def create
+    unless Customer.find_by(email: params[:super_admin][:email]).nil? && Admin.find_by(email: params[:super_admin][:email]).nil?
+      redirect_to new_super_admin_url
+      return
+    end
     @super_admin = SuperAdmin.new(super_admin_params)
 
     respond_to do |format|
@@ -41,6 +48,8 @@ class SuperAdminsController < ApplicationController
   # PATCH/PUT /super_admins/1.json
   def update
     respond_to do |format|
+      params[:super_admin][:email].downcase!
+      params[:super_admin][:name].downcase!
       if @super_admin.update(super_admin_params)
         format.html { redirect_to @super_admin, notice: 'Super admin was successfully updated.' }
         format.json { render :show, status: :ok, location: @super_admin }
@@ -62,6 +71,7 @@ class SuperAdminsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_super_admin
       @super_admin = SuperAdmin.find(params[:id])
@@ -69,6 +79,6 @@ class SuperAdminsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def super_admin_params
-      params.require(:super_admin).permit(:name, :email)
+      params.require(:super_admin).permit(:name, :email, :password, :password_comfirmation)
     end
 end

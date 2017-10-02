@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170928194310) do
     t.string "style"
     t.string "location"
     t.string "status"
+    t.integer "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,8 +48,8 @@ ActiveRecord::Schema.define(version: 20170928194310) do
   create_table "records", force: :cascade do |t|
     t.integer "customer_id"
     t.integer "car_id"
-    t.time "start"
-    t.time "end"
+    t.datetime "start"
+    t.datetime "end"
     t.string "status"
     t.integer "hours"
     t.datetime "created_at", null: false

@@ -34,6 +34,14 @@
   <strong>Status:</strong>
   <%= @car.status %>
 </p>
+
+<p>
+  <% unless @car.customer_id.nil? || (current_authority == $customer && current_user.id != @car.customer_id) %>
+  <strong>Relative to:</strong>
+      <%= Customer.find(@car.customer_id).email %>
+  <% end %>
+</p>
+
 <% if current_authority != $customer %>
     <%= link_to 'Edit', edit_car_path(@car) %>
 <% end %>
@@ -54,8 +62,8 @@
 <% elsif @car.status == $reserved %>
     <% if current_authority != $customer %>
         <%= form_for @car, url: {action: 'action'} do |f| %>
-            <%= f.label :customer_id %>
-            <%= f.collection_select :customer_id, Customer.all, :id, :email %>
+            <%= f.label :customer_id, 'Customer' %>
+            <%= collection_select :customer, :customer_id, Customer.all, :id, :email %>
             <%= submit_tag 'Check Out', name: 'checkout_btn' %>
             <%= submit_tag 'Cancel Reservation', name: 'cancel_btn' %>
         <% end %>
@@ -66,8 +74,8 @@
 <% else %>
     <% if current_authority != $customer %>
         <%= form_for @car, url: {action: 'action'} do |f| %>
-            <%= f.label :customer_id %>
-            <%= f.collection_select :customer_id, Customer.all, :id, :email %>
+            <%= f.label :customer_id, 'Customer' %>
+            <%= collection_select :customer, :customer_id, Customer.all, :id, :email %>
             <%= submit_tag 'Return', name: 'return_btn' %>
         <% end %>
     <% else %>
@@ -75,4 +83,3 @@
     <% end %>
 <% end %>
 <br><br>
-<%= link_to 'Back', cars_path %>
