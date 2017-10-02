@@ -2,6 +2,7 @@ class AdminsController < ApplicationController
   before_action :set_admin, except: [:index, :new, :create]
   before_action :back_if_not_logged_in
   before_action :back_if_customer
+  before_action :back_if_not_self_admin, only: [:edit]
 
   # GET /admins
   # GET /admins.json
