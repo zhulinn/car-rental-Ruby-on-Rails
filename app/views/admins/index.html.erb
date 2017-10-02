@@ -17,10 +17,10 @@
         <td><%= admin.name %></td>
         <td><%= admin.email %></td>
         <td><%= link_to 'Show', admin %></td>
-        <% if (current_authority == $admin && current_user.id == admin.id) || current_authority == $superadmin %>
+        <% if current_user == admin %>
             <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
         <% end %>
-        <% if (current_authority == $admin && current_user.id != admin.id) || current_authority == $superadmin %>
+        <% if (current_user == $admin && current_user.id != admin.id) || current_authority == $superadmin %>
             <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
