@@ -2,11 +2,11 @@
 
 <h1>Records</h1>
 
-<%= form_tag(records_path, method: "get") do %>
-    <%= label_tag(:value, "Search for:") %>
+<%= form_tag(records_path, method: 'get') do %>
+    <%= label_tag(:value, 'Search by:') %>
     <%= select_tag :attribute, options_for_select(%w(license email)) %>
     <%= text_field_tag(:value) %>
-    <%= submit_tag("Search") %>
+    <%= submit_tag('Search') %>
 <% end %>
 
 <table>

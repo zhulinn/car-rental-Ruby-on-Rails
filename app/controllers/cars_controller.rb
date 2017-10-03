@@ -1,9 +1,9 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: [:action, :show, :edit, :update, :destroy, :schedule, :reserve, :checkout, :return, :cancel]
-  before_action :set_customer, only: [:action, :schedule, :reserve, :checkout, :return, :cancel]
+  before_action :set_car, except: %i[index new create]
+  before_action :set_customer, only: %i[action schedule reserve checkout return cancel]
   before_action :back_if_not_logged_in
-  before_action :back_if_customer, only: [:new, :create, :edit, :update, :destroy]
-  after_action  :delete_customer_pin, only: [:reserve, :checkout, :return, :cancel]
+  before_action :back_if_customer, only: %i[new create edit update destroy]
+  after_action  :delete_customer_pin, only: %i[reserve checkout return cancel]
 
   # GET /cars
   # GET /cars.json

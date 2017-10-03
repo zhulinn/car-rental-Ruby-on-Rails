@@ -1,8 +1,8 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, except: [:index, :new, :create]
-  before_action :back_if_not_logged_in, except: [:new, :create, :destroy]
-  before_action :back_if_customer, only: [:index, :new, :create]
-  before_action :back_if_not_self_customer, only: [:show, :edit, :update]
+  before_action :set_customer, except: %i[index new create]
+  before_action :back_if_not_logged_in, except: %i[new create destroy]
+  before_action :back_if_customer, only: %i[index new create]
+  before_action :back_if_not_self_customer, only: %i[show edit update]
   # GET /customers
   # GET /customers.json
   def index

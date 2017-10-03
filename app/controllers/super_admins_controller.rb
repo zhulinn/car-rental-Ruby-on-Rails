@@ -1,9 +1,9 @@
 class SuperAdminsController < ApplicationController
-  before_action :set_super_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_super_admin, only: %i[show edit update destroy]
   before_action :back_if_not_logged_in
   before_action :back_if_customer
   before_action :back_if_admin
-  before_action :back_if_not_self_supoer_admin, only: [:edit]
+  before_action :back_if_not_self_supoer_admin, only: %i[edit]
 
   # GET /super_admins
   # GET /super_admins.json
