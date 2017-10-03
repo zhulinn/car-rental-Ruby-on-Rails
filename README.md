@@ -1,6 +1,7 @@
 
 # Car-Rental-App-RoR
 CSC 517 Program 2 Ruby on Rails for A Car-Rental App
+
 Live demo: https://car-rental-ltx.herokuapp.com/
 # SuperAdmin
 Preconfigured super admin: *Email: sadmin1@email.com, *Password: 333333
@@ -14,9 +15,9 @@ New customers can sign up on the index, and will automatically logged in after s
 # Instructions
 * When Admin delete a car from the system:
   1. The reservation attached to the car will be removed
-  2. All the record associated with the car will be removed including the unreturned record and checked out record.
+  2. All records associated with the car will be removed including the unreturned record and checked out record.
 * When Admin delete a user:
-  1. All records will be removed, including the reservations, checkouts, and checked out records.
+  1. All records associated with the user will be removed, including the reservations, checkouts, and checked out records.
 
 
 
