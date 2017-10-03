@@ -2,12 +2,12 @@
 
 one:
   car: one
-  user: one
+  customer: one
   start: 2017-09-22 14:01:25
   end: 2017-09-22 14:01:25
 
 two:
   car: two
-  user: two
+  customer: two
   start: 2017-09-22 14:01:25
   end: 2017-09-22 14:01:25
