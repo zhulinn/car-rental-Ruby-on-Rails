@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       get 'return'
       post 'reserve'
       get 'cancel'
+      get 'approve'
+      get 'disapprove'
     end
   end
 

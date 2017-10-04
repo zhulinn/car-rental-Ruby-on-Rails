@@ -36,10 +36,20 @@
         <td><%= car.style %></td>
         <td><%= car.location %></td>
         <td><%= car.status %></td>
-        <td><%= link_to 'Show', car %></td>
-        <% if current_authority != $customer %>
-        <td><%= link_to 'Edit', edit_car_path(car) %></td>
-        <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Details', car %></td>
+        <% if current_authority == $customer %>
+            <% if car.status == $suggested %>
+                <td><%= link_to 'Edit Suggestion', edit_car_path(car) %></td>
+                <td><%= link_to 'Retrieve Suggestion', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+        <% else %>
+            <% if car.status == $suggested %>
+                <td><%= link_to 'Approve Suggestion', approve_car_path(car) %></td>
+                <td><%= link_to 'Disapprove Suggestion', disapprove_car_path(car) %></td>
+            <% else %>
+                <td><%= link_to 'Edit', edit_car_path(car) %></td>
+                <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
         <% end %>
       </tr>
     <% end %>
@@ -48,5 +58,7 @@
 
 <br>
 <% if current_authority != $customer %>
-<%= link_to 'New Car', new_car_path %>
+    <%= link_to 'New Car', new_car_path %>
+<% else %>
+    <%= link_to 'Suggest a New Car', new_car_path %>
 <% end %>

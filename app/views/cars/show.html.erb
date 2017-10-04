@@ -38,12 +38,19 @@
 <p>
   <% unless @car.customer_id.nil? || (current_authority == $customer && current_user.id != @car.customer_id) %>
   <strong>Relative to:</strong>
-      <%= Customer.find(@car.customer_id).email %>
+      <%= Customer.find_by(id: @car.customer_id).email %>
   <% end %>
 </p>
 
-<% if current_authority != $customer %>
-    <%= link_to 'Edit', edit_car_path(@car) %>
+<% if current_authority != $customer && @car.status != $suggested %>
+    <%= link_to 'Edit', edit_car_path(@car) %> |
+    <%= link_to 'Destroy', @car, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% elsif current_authority != $customer && @car.status == $suggested %>
+    <%= link_to 'Approve Suggestion', approve_car_path(@car) %> |
+    <%= link_to 'Disapprove Suggestion', disapprove_car_path(@car) %>
+<% elsif current_authority == $customer && @car.status == $suggested %>
+    <%= link_to 'Edit Suggestion', edit_car_path(@car) %> |
+    <%= link_to 'Retrieve Suggestion', @car, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <br><br>
 
@@ -77,22 +84,29 @@
             <strong>Rental Hours:     </strong>
             <%= select_tag :h, options_for_select([['1', 1], ['2', 2], ['3', 3],['4', 4],['5', 5],['6', 6],['7', 7],['8', 8],['9', 9],['10',10]]) %>
             <%= submit_tag 'Check Out', name: 'checkout_btn' %>
+            <br>
+            <br>
             <%= submit_tag 'Cancel Reservation', name: 'cancel_btn' %>
         <% end %>
-    <% else %>
+
+    <% elsif @car.customer_id == current_user.id %>
+        <br>
+        <br>
         <strong>Rental Hours:     </strong>
         <%= select_tag :h, options_for_select([['1', 1], ['2', 2], ['3', 3],['4', 4],['5', 5],['6', 6],['7', 7],['8', 8],['9', 9],['10',10]]) %>
-        <%= link_to 'Check Out', checkout_car_path(@car) %>|
+        <%= link_to 'Check Out', checkout_car_path(@car) %>
+        <br>
+        <br>
         <%= link_to 'Cancel Reservation', cancel_car_path(@car) %>
     <% end %>
-<% else %>
+<% elsif @car.status == $checkedout%>
     <% if current_authority != $customer %>
         <%= form_for @car, url: {action: 'action'} do |f| %>
             <%= f.label :customer_id, 'Customer' %>
             <%= collection_select :customer, :customer_id, Customer.all, :id, :email %>
             <%= submit_tag 'Return', name: 'return_btn' %>
         <% end %>
-    <% else %>
+    <% elsif @car.customer_id == current_user.id %>
         <%= link_to 'Return', return_car_path(@car) %>
     <% end %>
 <% end %>

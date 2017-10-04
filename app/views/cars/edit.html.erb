@@ -1,4 +1,8 @@
-<h1>Editing Car</h1>
+<% if current_authority != $customer %>
+    <h1>Editing Car</h1>
+<% else %>
+    <h1>Editing Suggestion</h1>
+<% end %>
 
 <%= render 'form', car: @car %>
 

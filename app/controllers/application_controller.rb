@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   $checkedout = 'Checked Out'
   $returned = 'Returned'
   $cancelled = 'Cancelled'
+  $suggested = 'Suggested'
 
   def back_if_not_logged_in
     back_to_place unless logged_in?
@@ -24,15 +25,24 @@ class ApplicationController < ActionController::Base
   end
 
   def back_if_not_self_customer
-    back_to_place if logged_in? && current_authority == $customer && current_user != Customer.find(params[:id])
+    back_to_place if
+        logged_in? &&
+        current_authority == $customer &&
+        current_user != Customer.find(params[:id])
   end
 
   def back_if_not_self_admin
-    back_to_place if logged_in? && current_authority == $admin && current_user != Admin.find(params[:id])
+    back_to_place if
+        logged_in? &&
+        current_authority == $admin &&
+        current_user != Admin.find(params[:id])
   end
 
   def back_if_not_self_supoer_admin
-    back_to_place if logged_in? && current_authority == $superadmin && current_user != SuperAdmin.find(params[:id])
+    back_to_place if
+        logged_in? &&
+        current_authority == $superadmin &&
+        current_user != SuperAdmin.find(params[:id])
   end
 
   def back_to_place
