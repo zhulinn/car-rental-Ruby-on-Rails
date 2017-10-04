@@ -303,11 +303,11 @@ class CarsController < ApplicationController
   end
 
   def back_if_not_suggestion_owner
+    return unless @car.status == $suggested
     set_car
-    set_customer
     back_to_place unless
-        @car.customer_id == @customer.id &&
-        @car.status == $suggested
+        current_authority == $customer &&
+        @car.customer_id == current_user.id
   end
 
   def back_if_admin_edit_suggestion
