@@ -6,16 +6,16 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <style type="text/css">
+      body {background-color: burlywood}
+    </style>
   </head>
 
-  <body>
+  <body style="font-size:20px;text-align: center">
     <% if logged_in? %>
-      Hello, <%= current_user.name %>
-      <br><br>
-      <%= link_to 'My Profile', current_user %>|
-      <% if current_authority == $customer %>
-          <%= link_to 'My Record', records_path %>|
-      <% end %>
+      <h1 style="color:saddlebrown;text-align: center"> Welcome, <%= current_user.name %></h1>
+      <br>
       <% if current_authority != $customer %>
           <%= link_to 'Records', records_path %>|
           <%= link_to 'Customers', customers_path %> |
@@ -24,14 +24,21 @@
       <% if current_authority == $superadmin %>
           <%= link_to 'Super Admins', super_admins_path %>|
       <% end %>
-          <%= link_to 'Cars', cars_path %>
-    <% end %>
+      <% if current_authority == $customer %>
+          <%= link_to 'My Record', records_path %>|
+      <% end %>
+      <%= link_to 'Cars', cars_path %>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= link_to 'My Profile', current_user %>|
+      <%= link_to 'Log Out', logout_path, method: :delete %>
+  <% end %>
   <br>
   <br>
     <%= yield %>
-  <br><br>
-    <% if logged_in? %>
-        <%= link_to 'Log Out', logout_path, method: :delete %>
-    <% end %>
+
+
   </body>
+
 </html>

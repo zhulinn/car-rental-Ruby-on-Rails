@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Records</h1>
+<h2>Records</h2>
 
 <%= form_tag(records_path, method: 'get') do %>
     <%= label_tag(:value, 'Search by:') %>
@@ -8,8 +8,8 @@
     <%= text_field_tag(:value) %>
     <%= submit_tag('Search') %>
 <% end %>
-
-<table>
+<br>
+<table style="margin-left:300px">
   <thead>
     <tr>
       <th>Car License</th>
