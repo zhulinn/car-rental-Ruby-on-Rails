@@ -7,7 +7,7 @@ class Car < ApplicationRecord
   has_many :records, dependent: :destroy
   validates :license,
             presence: true,
-            format: { with: /\A\d{7}\z/ },
+            length: { is: 7},
             uniqueness: true
   validates :manufacturer, presence: true
   validates :model, presence: true
