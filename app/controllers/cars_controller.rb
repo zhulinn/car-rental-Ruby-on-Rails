@@ -1,9 +1,16 @@
 class CarsController < ApplicationController
-  before_action :set_car, except: %i[index new create]
-  before_action :set_customer, only: %i[action schedule reserve checkout return cancel]
+  before_action :set_car,
+                except: %i[index new create]
+  before_action :set_customer,
+                only: %i[action schedule reserve checkout return cancel]
   before_action :back_if_not_logged_in
-  before_action :back_if_customer, only: %i[new create edit update destroy]
-  after_action  :delete_customer_pin, only: %i[reserve checkout return cancel]
+  before_action :back_if_customer, only: %i[approve disapprove]
+  before_action :back_if_not_suggestion_owner,
+                only: %i[edit update destroy]
+  before_action :back_if_admin_edit_suggestion,
+                only: :edit
+  after_action  :delete_customer_pin,
+                only: %i[reserve checkout return cancel]
 
   # GET /cars
   # GET /cars.json
@@ -29,6 +36,20 @@ class CarsController < ApplicationController
 
   # GET /cars/1/edit
   def edit
+  end
+
+  def approve
+    Customer.find_by(id: @car.customer_id).update_car_id(nil)
+    @car.update(status: $available, customer_id: nil)
+    redirect_to @car,
+                notice: 'Suggestion has been approved.'
+  end
+
+  def disapprove
+    Customer.find_by(id: @car.customer_id).update_car_id(nil)
+    @car.destroy
+    redirect_to cars_url,
+                notice: 'Suggestion has been disapproved.'
   end
 
   def action
@@ -94,7 +115,7 @@ class CarsController < ApplicationController
 
   def checkout
     if !@customer.record_id.nil?
-      record = Record.find(@customer.record_id)
+      record = Record.find_by(id: @customer.record_id)
       if record.car_id == @car.id
         record.update_status($checkedout)
         record.update_start(Time.now)
@@ -140,7 +161,7 @@ class CarsController < ApplicationController
         format.json { head :no_content }
       end
     else
-      record = Record.find(@customer.record_id)
+      record = Record.find_by(id: @customer.record_id)
       if @car.id != record.car_id
         respond_to do |format|
           format.html { redirect_to(@car, notice: 'Failed, ' + subject + 'didn\'t check out this car.'); return }
@@ -179,7 +200,7 @@ class CarsController < ApplicationController
         format.json { head :no_content }
       end
     else
-      record = Record.find(@customer.record_id)
+      record = Record.find_by(id: @customer.record_id)
       @customer.update_status($returned)
       @customer.update_record_id(nil)
       @customer.update_car_id(nil)
@@ -192,14 +213,22 @@ class CarsController < ApplicationController
   # POST /cars
   # POST /cars.json
   def create
-    params[:car][:status] = $available
-    params[:car][:manufacturer].downcase!
-    params[:car][:model].downcase!
-    params[:car][:location].downcase!
+    params[:car][:status] = if current_authority == $customer
+                              $suggested
+                            else
+                              $available
+                            end
     @car = Car.new(car_params)
     respond_to do |format|
       if @car.save!
-        format.html { redirect_to @car, notice: 'Car was successfully created.'; return }
+        if current_authority == $customer
+          @car.update(customer_id: current_user.id)
+          current_user.update_car_id(@car.id)
+        end
+        format.html do
+          redirect_to @car, notice: 'Car was successfully created.'
+          return
+        end
         format.json { render :show, status: :created, location: @car }
       else
         format.html { render :new }
@@ -211,9 +240,6 @@ class CarsController < ApplicationController
   # PATCH/PUT /cars/1
   # PATCH/PUT /cars/1.json
   def update
-    params[:car][:manufacturer].downcase!
-    params[:car][:model].downcase!
-    params[:car][:location].downcase!
     respond_to do |format|
       if @car.update(car_params)
         format.html { redirect_to @car, notice: 'Car was successfully updated.';return }
@@ -234,7 +260,6 @@ class CarsController < ApplicationController
       customer.update_car_id(nil)
       customer.update_record_id(nil)
     end
-    #Record.where('car_id = ?', @car.id).destroy_all
     # Destroy the car.
     @car.destroy
     respond_to do |format|
@@ -266,8 +291,26 @@ class CarsController < ApplicationController
     params.delete(:customer)
   end
 
+  def back_if_not_suggestion_owner
+    set_car
+    set_customer
+    back_to_place unless
+        @car.customer_id == @customer.id &&
+        @car.status == $suggested
+  end
+
+  def back_if_admin_edit_suggestion
+    set_car
+    back_to_place if
+        @car.status == $suggested &&
+        current_authority != $customer
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def car_params
-    params.require(:car).permit(:id, :license, :manufacturer, :model, :rate, :style, :location, :status)
+    params.require(:car).permit(
+      :id, :license, :manufacturer, :model,
+      :rate, :style, :location, :status
+    )
   end
 end

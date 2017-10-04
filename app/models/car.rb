@@ -1,4 +1,9 @@
 class Car < ApplicationRecord
+  before_save {
+    self.manufacturer = manufacturer.downcase
+    self.model = model.downcase
+    self.location = location.downcase
+  }
   has_many :records, dependent: :destroy
   validates :license,
             presence: true,
@@ -17,7 +22,7 @@ class Car < ApplicationRecord
   validates :status,
             presence: true,
             inclusion: {
-              in: ['Available', 'Reserved', 'Checked Out'],
+              in: ['Available', 'Reserved', 'Checked Out', 'Suggested'],
               message: '%<value>s is not a valid status'
             }
 
