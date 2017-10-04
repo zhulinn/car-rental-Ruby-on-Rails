@@ -15,13 +15,16 @@ class CarsController < ApplicationController
   # GET /cars
   # GET /cars.json
   def index
+    @cars = if current_authority == $customer
+                 Car.where('status != ? or customer_id = ?', $suggested, current_user.id)# display suggested car by customer self
+               else
+                 Car.all
+               end
+
     attribute = params[:attribute]
     value = params[:value]
-    @cars = if value.nil? || value.blank?
-              Car.all
-            else
-              Car.where("#{attribute}.downcase = ?", value.downcase)
-            end
+    @cars =    @car.where("#{attribute}.downcase = ?", value.downcase)  unless value.nil? || value.blank?
+
   end
 
   # GET /cars/1
@@ -118,6 +121,13 @@ class CarsController < ApplicationController
   end
 
   def checkout
+    if @car.status == $reserved && @car.customer_id != @customer.id  # check this car whether is reserved
+
+      respond_to do |format|
+        format.html { redirect_to @car, notice: 'Failed, '  + 'this car has been reserve for another customer!'; return }
+        format.json { head :no_content }
+      end
+    end
 
     if !@customer.record_id.nil?
       record = Record.find_by(id: @customer.record_id)
@@ -216,6 +226,7 @@ class CarsController < ApplicationController
       @customer.update_record_id(nil)
       @customer.update_car_id(nil)
       record.update_status($cancelled)
+      record.update_hours("0")
       @car.update(status: $available, customer_id: nil)
       redirect_to(@car, notice: 'Reservation has been successfully cancelled.' ); return
     end
@@ -231,7 +242,7 @@ class CarsController < ApplicationController
                             end
     @car = Car.new(car_params)
     respond_to do |format|
-      if @car.save!
+      if @car.save
         if current_authority == $customer
           @car.update(customer_id: current_user.id)
           current_user.update_car_id(@car.id)

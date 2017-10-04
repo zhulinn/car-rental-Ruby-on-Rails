@@ -59,6 +59,9 @@
         <%= form_for @car, url: {action: 'action'} do |f| %>
             <%= f.label :customer_id, 'Customer' %>
             <%= collection_select :customer, :customer_id, Customer.all, :id, :email %>
+            <br>
+            <br>
+
             <%= submit_tag 'Reserve', name: 'reserve_btn' %>
             <br>
             <br>
@@ -104,6 +107,9 @@
         <%= form_for @car, url: {action: 'action'} do |f| %>
             <%= f.label :customer_id, 'Customer' %>
             <%= collection_select :customer, :customer_id, Customer.all, :id, :email %>
+            <br>
+            <br>
+
             <%= submit_tag 'Return', name: 'return_btn' %>
         <% end %>
     <% elsif @car.customer_id == current_user.id %>
