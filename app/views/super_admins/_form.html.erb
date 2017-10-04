@@ -1,6 +1,6 @@
 <%= form_with(model: super_admin, local: true) do |form| %>
   <% if super_admin.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" >
       <h2><%= pluralize(super_admin.errors.count, "error") %> prohibited this super_admin from being saved:</h2>
 
       <ul>
@@ -10,6 +10,7 @@
       </ul>
     </div>
   <% end %>
+
 
   <div class="field">
     <%= form.label :name %>
