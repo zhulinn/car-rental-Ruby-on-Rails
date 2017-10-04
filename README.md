@@ -22,6 +22,7 @@ New customers can sign up on the index, and will automatically logged in after s
   2. All records associated with the car will be removed including the unreturned record and checked out record.
 * When Admin delete a user:
   1. All records associated with the user will be removed, including the reservations, checkouts, and checked out records.
+* Customers can suggest a new car. SuperAdmins and Admins can approve or disapprove this suggestion.
 
 
 
