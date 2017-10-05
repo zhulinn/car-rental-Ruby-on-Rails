@@ -27,8 +27,8 @@
       <tr>
         <td><%= record.car.license %></td>
         <td><%= record.customer.email %></td>
-        <td><%= record.start %></td>
-        <td><%= record.end %></td>
+        <td><%= record.start.in_time_zone('Eastern Time (US & Canada)') %></td>
+        <td><%= record.end.in_time_zone('Eastern Time (US & Canada)') %></td>
         <td><%= record.hours %></td>
         <td><%= record.status %></td>
         <td><%= link_to 'Details', record %></td>

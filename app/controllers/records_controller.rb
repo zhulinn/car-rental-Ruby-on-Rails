@@ -16,11 +16,8 @@ class RecordsController < ApplicationController
       attribute = 'customer_id'
       target = Customer.find_by(email: params[:value])
     end
-    @records = if target.nil?
-                 @records
-               else
-                 @records.where("#{attribute} = ?", target.id)
-               end
+    @records = @records.where("#{attribute} = ?", target.id) unless target.nil?
+
   end
 
   # GET /records/1

@@ -37,16 +37,16 @@
         <td><%= car.location %></td>
         <td><%= car.status %></td>
         <td><%= link_to 'Details', car %></td>
-        <% if current_authority == $customer %>
-            <% if car.status == $suggested %>
+        <% if car.status == $suggested %>
+            <% if current_authority == $customer %>
                 <td><%= link_to 'Edit Suggestion', edit_car_path(car) %></td>
                 <td><%= link_to 'Retrieve Suggestion', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
-        <% else %>
-            <% if car.status == $suggested %>
+            <% else %>
                 <td><%= link_to 'Approve Suggestion', approve_car_path(car) %></td>
                 <td><%= link_to 'Disapprove Suggestion', disapprove_car_path(car) %></td>
-            <% else %>
+            <% end %>
+        <% else %>
+            <% if current_authority != $customer %>
                 <td><%= link_to 'Edit', edit_car_path(car) %></td>
                 <td><%= link_to 'Destroy', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
@@ -55,6 +55,8 @@
     <% end %>
   </tbody>
 </table>
+
+
 
 <br>
 <% if current_authority != $customer %>

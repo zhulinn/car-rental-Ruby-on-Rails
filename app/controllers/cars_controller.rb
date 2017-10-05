@@ -1,4 +1,5 @@
 class CarsController < ApplicationController
+  require "date"
   before_action :set_car,
                 except: %i[index new create]
   before_action :set_customer,
@@ -30,6 +31,9 @@ class CarsController < ApplicationController
   # GET /cars/1
   # GET /cars/1.json
   def show
+      if @car.status == $reserved
+        @records = Record.where('status = ? and car_id =?', $reserved, @car.id)
+      end
   end
 
   # GET /cars/new
@@ -83,24 +87,32 @@ class CarsController < ApplicationController
   end
 
   def reserve
-    require "date"
-    start_time = Time.new(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i, params[:start_date][:hour].to_i, params[:start_date][:minute].to_i,59,"-04:00")# has to add 59s to ensure start time is right now
+
+    start_time = Time.new(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i, params[:start_date][:hour].to_i, params[:start_date][:minute].to_i,59)# "-04:00"has to add 59s to ensure start time is right now
     hours= params[:h].to_i
     end_time = start_time +  hours.hour
     #end_time = Time.new(params[:end_date][:year].to_i, params[:end_date][:month].to_i, params[:end_date][:day].to_i, params[:end_date][:hour].to_i, params[:end_date][:minute].to_i, 0, "-04:00")
-    if start_time < Time.now || start_time > Time.now + 7.days
+    if start_time < Time.zone.now || start_time > Time.zone.now + 7.days
       respond_to do |format|
         format.html { redirect_to @car, notice: 'Start Time is not valid.'; return }
         format.json { head :no_content }
       end
-   # elsif end_time - start_time < 1.hour || end_time - start_time > 10.hours
-    #  respond_to do |format|
-   #     format.html { redirect_to @car, notice: 'Rental period exceeds the limit.'; return }
-  #      format.json { head :no_content }
-  #    end
     else
+      if @car.status == $reserved
+         @records = Record.where('status = ? and car_id =?', $reserved, @car)
+         @records.each do |record|
+           unless end_time < record.start || start_time > record.end  # check whether reservation time is overlaped
+             respond_to do |format|
+               format.html { redirect_to @car, notice: 'The car has been reserved during this time period.'; return }
+               format.json { head :no_content }
+             end
+           end
+         end
+      end
       record = Record.new(customer_id: @customer.id, car_id: @car.id, start: start_time, end: end_time, status: $reserved)
       record.save
+      record.update_hours(hours)
+
       #@customer.save!
       @customer.update_status($reserved)
       @customer.update_car_id(@car.id)
@@ -131,10 +143,7 @@ class CarsController < ApplicationController
 
     if !@customer.record_id.nil?
       record = Record.find_by(id: @customer.record_id)
-      if record.car_id == @car.id
-        record.update_status($checkedout)
-        record.update_start(Time.now)
-      else
+      if record.car_id != @car.id
         subject = if current_authority == $customer
                     'you have'
                   else
@@ -144,21 +153,46 @@ class CarsController < ApplicationController
           format.html { redirect_to @car, notice: 'Failed, ' + subject + 'reserved another car.'; return }
           format.json { head :no_content }
         end
-
+      else
+        record.update_status($checkedout)
+      #  record.update_start(Time.now)
       end
     else
-      record = Record.new(customer_id: @customer.id, car_id: @car.id, start: Time.now, status: $checkedout)
+      record = Record.new(customer_id: @customer.id, car_id: @car.id, start: Time.zone.now, status: $checkedout)
       record.save
-    end
+      #endtime = record.start +  params[:h].to_i.hour
 
+    end
+    endtime = record.start +  20.second
+
+    record.update_end(endtime)
     @customer.update_record_id(record.id)
     @customer.update_car_id(@car.id)
     @customer.update_status($checkedout)
     @car.update_status($checkedout)
     @car.update_attribute(:customer_id, "#{@customer.id}")
-    #endtime = now +  params[:h].to_i.hour
+
+    hours = params[:h].to_i
+    record.update_hours(hours)
+
 ########################################
 #  Open Timer （call return method）  endtime  change to available
+
+      ob_id= $scheduler.at record.end do
+        record.update_end(endtime)
+        record.update_status($returned)
+        charge = @customer.charge + @car.rate * hours
+        @customer.update_status($returned)
+        @customer.update_attribute(:car_id, "")
+        @customer.update_attribute(:record_id,"")
+        @customer.update_charge(charge)
+        @customer.update_attribute(:job_id, "")
+
+        @car.update_status($available)
+        @car.update_attribute(:customer_id, "")
+      end
+
+      @customer.update_attribute(:job_id, "#{job_id}")
 
 ########################################
     respond_to do |format|
@@ -189,7 +223,12 @@ class CarsController < ApplicationController
         @car.update_status($available)
         @car.update_attribute(:customer_id, "")
 
-        end_time = Time.now
+        unless @customer.job_id.nil?
+          $scheduler.job(@customer.job_id).unschedule
+          @customer.update_attribute(:job_id, "")
+        end
+
+        end_time = Time.zone.now
         hours = ((end_time - record.start) / 1.hour).ceil
         record.update_end(end_time)
         record.update_hours(hours)
@@ -227,7 +266,9 @@ class CarsController < ApplicationController
       @customer.update_car_id(nil)
       record.update_status($cancelled)
       record.update_hours("0")
-      @car.update(status: $available, customer_id: nil)
+      if Record.where('status = ? and car_id =?', $reserved, @car).size == 0
+        @car.update(status: $available, customer_id: nil)
+      end
       redirect_to(@car, notice: 'Reservation has been successfully cancelled.' ); return
     end
   end

@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 5) do
     t.string "status"
     t.integer "record_id"
     t.integer "car_id"
+    t.string "job_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
