@@ -252,8 +252,16 @@ class CarsController < ApplicationController
           @customer.update_charge(charge)
           @customer.update_attribute(:job_id, "")
 
-          @car.update_status($available)
-          @car.update_attribute(:customer_id, "")
+          reservations = Record.where('status = ? and car_id =? and id != ?', $reserved, @car,record.id)
+                             .order( :start )
+          if reservations.size == 0
+            @car.update_status($available)
+            @car.update_attribute(:customer_id, "")
+          else
+            nextone = reservations.first  # next reservation
+            @car.update_status($reserved)
+            @car.update_attribute(:customer_id, "#{nextone.customer_id}")
+          end
       end
 
       @customer.update_attribute(:job_id, "#{job_id}")
@@ -342,7 +350,6 @@ class CarsController < ApplicationController
 
       reservations = Record.where('status = ? and car_id =? and id != ?', $reserved, @car,record.id)
                            .order( :start )
-
       if reservations.size == 0
         @car.update_status($available)
         @car.update_attribute(:customer_id, "")
