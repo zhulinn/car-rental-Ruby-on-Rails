@@ -3,11 +3,11 @@ class CustomerMailerPreview < ActionMailer::Preview
   def return_email
     customer = Customer.first
     car = Car.first
-    UserMailer.return_email(customer,car)
+    CustomerMailer.return_email(customer,car)
   end
   def available_email
     customer = Customer.first
     car = Car.first
-    UserMailer.available_email(Customer.first,Car.first)
+    CustomerMailer.available_email(Customer.first,Car.first)
   end
 end

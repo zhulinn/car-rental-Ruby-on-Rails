@@ -11,6 +11,6 @@ class CustomerMailer < ApplicationMailer
     @customer = customer
     @car = car
     #@url = 'http://example.com/login'
-    mail(to: @customer.email, subject: 'Cas Is Available')
+    mail(to: @customer.email, subject: 'Cas Is Returned')
   end
 end
