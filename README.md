@@ -18,6 +18,7 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 # Multi-Cumstomers Reservation Support
 * The system supports multiple cumstomers reserve the same car as long as the reservation time is not conficting.
 * The system will automatically change the right car status if the car has reservation already when the car is returned. 
+* The reservation history will shown below, if the car is reserved, to help users reserve on a valid time.
 # Auto Cancel and return
 * The system will cancel a reservation if a user doesn’t check out a car in time.
 * The system will change the car status, if a user doesn’t return a car on the date promised.
