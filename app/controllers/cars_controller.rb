@@ -3,7 +3,7 @@ class CarsController < ApplicationController
   before_action :set_car,
                 except: %i[index new create checkout]
   before_action :set_customer,
-                only: %i[action schedule reserve beforecheckout return cancel]
+                only: %i[action schedule reserve beforecheckout return cancel subscribe]
   before_action :back_if_not_logged_in
   before_action :back_if_customer, only: %i[approve disapprove]
   before_action :back_if_not_suggestion_owner,
@@ -46,8 +46,10 @@ class CarsController < ApplicationController
   end
 
   def approve
-    Customer.find_by(id: @car.customer_id).update_car_id(nil)
+    customer = Customer.find_by(id: @car.customer_id)
+    customer.update_car_id(nil)
     @car.update(status: $available, customer_id: nil)
+    CustomerMailer.approve_email(customer, @car).deliver_now
     redirect_to @car,
                 notice: 'Suggestion has been approved.'
   end
@@ -67,9 +69,20 @@ class CarsController < ApplicationController
       redirect_to beforecheckout_car_url(id: @car.id, h: params[:h])
     elsif params[:return_btn]
       redirect_to return_car_url(id: @car.id)
+    elsif params[:subscribe_btn]
+      redirect_to subscribe_car_url(id: @car.id)
     else
       redirect_to cancel_car_url(id: @car.id)
     end
+  end
+
+  def subscribe
+    @customer.update_attribute(:subscribe_car_id, "#{@car.id}")
+    respond_to do |format|
+      format.html { redirect_to @car, notice: 'Car was successfully subscribed'; return }
+      format.json { head :no_content }
+    end
+
   end
 
   def schedule
@@ -88,11 +101,15 @@ class CarsController < ApplicationController
 
   def findNext car, customer
     reservations = Record.where('status = ? and car_id =? and customer_id != ?',
-                                $reserved, car, customer.id).order( :start )
+                                $reserved, car.id, customer.id).order( :start )
     if reservations.size == 0
       car.update_status($available)
       car.update_attribute(:customer_id, "")
-
+      subscribes = Customer.where('subscribe_car_id =? ', car.id)
+      subscribes.each do |one|
+        one.update_attribute(:subscribe_car_id, "")
+        CustomerMailer.available_email(one, car).deliver_now
+      end
     else
       nextone = reservations.first # next reservation
       car.update_status($reserved)
@@ -239,6 +256,7 @@ class CarsController < ApplicationController
        # job_id= $scheduler.at tmp.to_s do
       job_id= $scheduler.at record.end do
           record.update_status($returned)
+          CustomerMailer.return_email(customer, car).deliver_now
           charge = customer.charge + car.rate * record.hours
 
           customer.update_status($returned)
