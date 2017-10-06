@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'lzhu15@ncsu.edu'
+  default from: 'noreply@car-reantal.com'
   layout 'mailer'
 end

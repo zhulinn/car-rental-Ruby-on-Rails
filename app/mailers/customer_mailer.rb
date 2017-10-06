@@ -1,5 +1,5 @@
 class CustomerMailer < ApplicationMailer
-  default from: 'lzhu15@ncsu.edu'
+  default from: 'noreply@car-reantal.com'
 
   def available_email(customer,car)
     @customer = customer

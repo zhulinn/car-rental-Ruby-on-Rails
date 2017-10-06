@@ -91,6 +91,7 @@ class CarsController < ApplicationController
                                 $reserved, car, customer.id).order( :start )
     if reservations.size == 0
       car.update_status($available)
+   #   CustomerMailer.available_email(customer, car).deliver_now
       car.update_attribute(:customer_id, "")
 
     else
@@ -239,6 +240,7 @@ class CarsController < ApplicationController
        # job_id= $scheduler.at tmp.to_s do
       job_id= $scheduler.at record.end do
           record.update_status($returned)
+          CustomerMailer.return_email(customer, car).deliver_now
           charge = customer.charge + car.rate * record.hours
 
           customer.update_status($returned)
@@ -269,8 +271,6 @@ class CarsController < ApplicationController
         format.json { head :no_content }
       end
     end
-
-          CustomerMailer.return_email(@customer, @car).deliver_now
 
         unless $scheduler.job(@customer.job_id).nil?
           $scheduler.job(@customer.job_id).unschedule
