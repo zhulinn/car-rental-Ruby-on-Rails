@@ -32,7 +32,7 @@ class CarsController < ApplicationController
   # GET /cars/1.json
   def show
       if @car.status == $reserved
-        @records = Record.where('status = ? and car_id =?', $reserved, @car.id)
+        @records = Record.where('status = ? and car_id =?', $reserved, @car.id).order( :start )
       end
   end
 
@@ -92,11 +92,11 @@ class CarsController < ApplicationController
                           params[:start_date][:day].to_i,
                           params[:start_date][:hour].to_i,
                           params[:start_date][:minute].to_i,
-                          59)# has to add 59s to ensure start time is valid
+                          0)# has to add 59s to ensure start time is valid
     hours= params[:h].to_i
     end_time = start_time +  hours.hour
     #end_time = Time.new(params[:end_date][:year].to_i, params[:end_date][:month].to_i, params[:end_date][:day].to_i, params[:end_date][:hour].to_i, params[:end_date][:minute].to_i, 0, "-04:00")
-    if start_time < Time.zone.now || start_time > Time.zone.now + 7.days
+    if start_time + 59.second < Time.zone.now || start_time > Time.zone.now + 7.days
       respond_to do |format|
         format.html { redirect_to @car, notice: 'Start Time is not valid.'; return }
         format.json { head :no_content }
@@ -133,25 +133,27 @@ class CarsController < ApplicationController
     ########################################
     #  Timer
 
-    #elasticity = record.start + 30.minute
-    elasticity = record.start + 15.second
-    job_id= $scheduler.at elasticity.to_s do
-
-
-
-
+    elasticity = record.start + 30.minute
+   # elasticity = record.start + 15.second
+    job_id = $scheduler.at elasticity.to_s do
       record = Record.find_by(id: @customer.record_id)
       record.update_status($cancelled)
       record.update_hours("0")
       @customer.update_status($returned)
       @customer.update_record_id(nil)
       @customer.update_car_id(nil)
-      reservations = Record.where('status = ? and car_id =?', $reserved, @car)
+      @customer.update_attribute(:job_id, "")
+
+      reservations = Record.where('status = ? and car_id =? and id != ?', $reserved, @car,record.id)
       if reservations.size == 0
-        @car.update_columns(status: $available, customer_id: nil)
+        @car.update_status($available)
+        @car.update_attribute(:customer_id, "")
+
       else
         nextone = reservations.minimum(:start)  # next reservation
-        @car.update_columns(status: $reserved, customer_id: nextone.custom_id)
+        @car.update_status($reserved)
+        @car.update_attribute(:customer_id, "#{nextone.customer_id}")
+
       end
     end
     @customer.update_attribute(:job_id, "#{job_id}")
@@ -190,14 +192,29 @@ class CarsController < ApplicationController
         end
       end
     end
-    # @customer.status == $returned || @car.customer_id == @customer.id
+    if @car.status = $reserved && @car.customer_id != @customer.id
+      respond_to do |format|
+        format.html { redirect_to @car, notice: 'Failed, ' + subject + 'this car is reserved by others'; return }
+        format.json { head :no_content }
+      end
+    end
+    record = Record.find_by(id: @customer.record_id)
+
+    if record.start > Time.zone.now
+      respond_to do |format|
+        format.html { redirect_to @car, notice: 'Failed, ' + subject  + 'to wait until your appointment time '; return }
+        format.json { head :no_content }
+      end
+    end
     redirect_to checkout_car_url(id: @car.id, h: params[:h])
   end
 
   def checkout
     if @car.status == $reserved
-        $scheduler.job(@customer.job_id).unschedule   # disable Reserve Timer
-        @customer.update_attribute(:job_id, "")
+      unless $scheduler.job(@customer.job_id).nil?
+        $scheduler.job(@customer.job_id).unschedule
+      end
+
 
         record = Record.find_by(id: @customer.record_id)
         record.update_status($checkedout)
@@ -208,10 +225,13 @@ class CarsController < ApplicationController
                           status: $checkedout)
       hours= params[:h].to_i
       endtime = record.start +  hours.hour
-      record.update_columns(end: endtime, hours: hours)
+      record.update_end(endtime)
+      record.update_hours(hours)
+
 
       @customer.update_record_id(record.id)
       @customer.update_car_id(@car.id)
+      @customer.update_attribute(:job_id, "")
 
       @car.update_attribute(:customer_id, "#{@customer.id}")
 
@@ -221,8 +241,8 @@ class CarsController < ApplicationController
 
 ########################################
 #  Open Timer （call return method）  endtime  change to available
-        tmp = record.start +  30.second  #  should comment
-      job_id= $scheduler.at tmp.to_s do
+       # tmp = record.start +  30.second  #  should comment
+      job_id= $scheduler.at record.end do
           record.update_status($returned)
           charge = @customer.charge + @car.rate * record.hours
 
@@ -232,8 +252,16 @@ class CarsController < ApplicationController
           @customer.update_charge(charge)
           @customer.update_attribute(:job_id, "")
 
-          @car.update_status($available)
-          @car.update_attribute(:customer_id, "")
+          reservations = Record.where('status = ? and car_id =? and id != ?', $reserved, @car,record.id)
+                             .order( :start )
+          if reservations.size == 0
+            @car.update_status($available)
+            @car.update_attribute(:customer_id, "")
+          else
+            nextone = reservations.first  # next reservation
+            @car.update_status($reserved)
+            @car.update_attribute(:customer_id, "#{nextone.customer_id}")
+          end
       end
 
       @customer.update_attribute(:job_id, "#{job_id}")
@@ -251,26 +279,31 @@ class CarsController < ApplicationController
               else
                 'this customer '
               end
-    if @customer.record_id.nil?
+    if  @car.customer_id != @customer.id
       respond_to do |format|
         format.html { redirect_to(@car, notice: 'Failed, ' + subject + 'didn\'t check out this car.'); return }
         format.json { head :no_content }
       end
-    else
-      record = Record.find_by(id: @customer.record_id)
-      if @car.id != record.car_id
-        respond_to do |format|
-          format.html { redirect_to(@car, notice: 'Failed, ' + subject + 'didn\'t check out this car.'); return }
-          format.json { head :no_content}
-        end
-      else
-       # unless @customer.job_id.nil?
+    end
+
+        unless $scheduler.job(@customer.job_id).nil?
           $scheduler.job(@customer.job_id).unschedule
-          @customer.update_attribute(:job_id, "")
-      #  end
+        end
+
+
+        reservations = Record.where('status = ? and car_id =? and id != ?', $reserved, @car,@customer.record_id)
+                           .order( :start )
+
+        if reservations.size == 0
           @car.update_status($available)
           @car.update_attribute(:customer_id, "")
+        else
+          nextone = reservations.first  # next reservation
+          @car.update_status($reserved)
+          @car.update_attribute(:customer_id, "#{nextone.customer_id}")
+        end
 
+        record = Record.find_by(id: @customer.record_id)
         end_time = Time.zone.now
         hours = ((end_time - record.start) / 1.hour).ceil
         record.update_end(end_time)
@@ -278,7 +311,7 @@ class CarsController < ApplicationController
         record.update_status($returned)
         charge = @customer.charge + @car.rate * hours
         @customer.update_status($returned)
-
+        @customer.update_attribute(:job_id, "")
         @customer.update_attribute(:car_id, "")
         @customer.update_attribute(:record_id,"")
         @customer.update_charge(charge)
@@ -287,8 +320,6 @@ class CarsController < ApplicationController
           format.html { redirect_to(@car, notice: 'Car was successfully returned.'); return }
           format.json { head :no_content }
         end
-      end
-    end
   end
 
   def cancel
@@ -303,17 +334,29 @@ class CarsController < ApplicationController
         format.json { head :no_content }
       end
     else
+      unless $scheduler.job(@customer.job_id).nil?
+        $scheduler.job(@customer.job_id).unschedule
+      end
+
+
       record = Record.find_by(id: @customer.record_id)
       @customer.update_status($returned)
       @customer.update_record_id(nil)
       @customer.update_car_id(nil)
+      @customer.update_attribute(:job_id, "")
+
       record.update_status($cancelled)
       record.update_hours("0")
-      if Record.where('status = ? and car_id =?', $reserved, @car).size == 0
-        @car.update(status: $available, customer_id: nil)
+
+      reservations = Record.where('status = ? and car_id =? and id != ?', $reserved, @car,record.id)
+                           .order( :start )
+      if reservations.size == 0
+        @car.update_status($available)
+        @car.update_attribute(:customer_id, "")
       else
-        id = @records.minimum(:start).customer_id
-        @car.update_attribute(:customer_id, "#{id}")
+        nextone = reservations.first  # next reservation
+        @car.update_status($reserved)
+        @car.update_attribute(:customer_id, "#{nextone.customer_id}")
       end
       redirect_to(@car, notice: 'Reservation has been successfully cancelled.' ); return
     end
@@ -368,6 +411,10 @@ class CarsController < ApplicationController
       customer.update_status($returned)
       customer.update_car_id(nil)
       customer.update_record_id(nil)
+      unless $scheduler.job(customer.job_id).nil?
+        $scheduler.job(customer.job_id).unschedule
+        customer.update_attribute(:job_id, "")
+      end
     end
     # Destroy the car.
     @car.destroy
