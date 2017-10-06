@@ -28,7 +28,7 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 * When Admin delete a car from the system:
   1. The user who is reserving or checking out this car will update his(her) status to indicate he(she) has returned the car.
   2. All records associated with the car will be removed including the reserve record and checked out record.
-* When Admin delete a user:
+* When Admin delete a user from the system:
   1. The car which is reserved or checked out by this user will update its status to indicate the user has returned the car.
   2. All records associated with the user will be removed, including the reservations, and checked out records.
 # Bonus
