@@ -340,12 +340,14 @@ class CarsController < ApplicationController
     @car = Car.new(car_params)
     respond_to do |format|
       if @car.save
+        action = ' created.'
         if current_authority == $customer
           @car.update(customer_id: current_user.id)
           current_user.update_car_id(@car.id)
+          action = ' suggested.'
         end
         format.html do
-          redirect_to @car, notice: 'Car was successfully created.'
+          redirect_to @car, notice: 'Car was successfully' + action
           return
         end
         format.json { render :show, status: :created, location: @car }
