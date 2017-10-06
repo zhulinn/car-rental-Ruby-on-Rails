@@ -92,11 +92,11 @@ class CarsController < ApplicationController
                           params[:start_date][:day].to_i,
                           params[:start_date][:hour].to_i,
                           params[:start_date][:minute].to_i,
-                          59)# has to add 59s to ensure start time is valid
+                          0)# has to add 59s to ensure start time is valid
     hours= params[:h].to_i
     end_time = start_time +  hours.hour
     #end_time = Time.new(params[:end_date][:year].to_i, params[:end_date][:month].to_i, params[:end_date][:day].to_i, params[:end_date][:hour].to_i, params[:end_date][:minute].to_i, 0, "-04:00")
-    if start_time < Time.zone.now || start_time > Time.zone.now + 7.days
+    if start_time + 59.second < Time.zone.now || start_time > Time.zone.now + 7.days
       respond_to do |format|
         format.html { redirect_to @car, notice: 'Start Time is not valid.'; return }
         format.json { head :no_content }
@@ -194,7 +194,15 @@ class CarsController < ApplicationController
     end
     if @car.status = $reserved && @car.customer_id != @customer.id
       respond_to do |format|
-        format.html { redirect_to @car, notice: 'Failed, '  + 'this car is reserved by others'; return }
+        format.html { redirect_to @car, notice: 'Failed, ' + subject + 'this car is reserved by others'; return }
+        format.json { head :no_content }
+      end
+    end
+    record = Record.find_by(id: @customer.record_id)
+
+    if record.start > Time.zone.now
+      respond_to do |format|
+        format.html { redirect_to @car, notice: 'Failed, ' + subject  + 'to wait until your appointment time '; return }
         format.json { head :no_content }
       end
     end
