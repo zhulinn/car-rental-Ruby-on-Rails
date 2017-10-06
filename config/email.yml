@@ -1,0 +1,14 @@
+development:
+    :address: csc517xgong6@gmail.com
+    :port: 578
+    :user_name: 517 csc
+    :password: csc517cs
+    :authentication: :plain
+    :enable_starttls_auto: true
+production:
+    :address: csc517xgong6@gmail.com
+    :port: 578
+    :user_name: 517 csc
+    :password: csc517cs
+    :authentication: :plain
+    :enable_starttls_auto: true
