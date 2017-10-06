@@ -13,4 +13,10 @@ class CustomerMailer < ApplicationMailer
     #@url = 'http://example.com/login'
     mail(to: @customer.email, subject: 'Cas Is Returned')
   end
+  def approve_email(customer,car)
+    @customer = customer
+    @car = car
+    #@url = 'http://example.com/login'
+    mail(to: @customer.email, subject: 'Cas Is Approved')
+  end
 end

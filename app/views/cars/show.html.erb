@@ -149,12 +149,16 @@
             <%= collection_select :customer, :customer_id, Customer.all, :id, :email %>
             <br>
             <br>
-                <%= submit_tag 'Return', name: 'return_btn' %>
-        <% end %>
-    <% elsif @car.customer_id == current_user.id %>
-         <%= form_for @car, url: {action: 'action'} do |f| %>
             <%= submit_tag 'Return', name: 'return_btn' %>
-         <% end %>
+        <% end %>
+    <% else %>
+         <%= form_for @car, url: {action: 'action'} do |f| %>
+            <% if @car.customer_id == current_user.id %>
+                <%= submit_tag 'Return', name: 'return_btn' %>
+            <% elsif current_user.subscribe_car_id == nil%>
+                <%= submit_tag 'Subscribe', name: 'subscribe_btn' %>
+            <% end %>
+        <% end %>
      <% end %>
 <% end %>
 <br><br>

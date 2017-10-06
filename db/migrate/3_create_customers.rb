@@ -9,6 +9,7 @@ class CreateCustomers < ActiveRecord::Migration[5.1]
       t.integer :record_id
       t.integer :car_id
       t.string :job_id
+      t.integer :subscribe_car_id
 
 
       t.timestamps
