@@ -3,7 +3,7 @@ class CarsController < ApplicationController
   before_action :set_car,
                 except: %i[index new create]
   before_action :set_customer,
-                only: %i[action index schedule reserve beforecheckout checkout return cancel]
+                only: %i[action schedule reserve beforecheckout checkout return cancel]
   before_action :back_if_not_logged_in
   before_action :back_if_customer, only: %i[approve disapprove]
   before_action :back_if_not_suggestion_owner,
@@ -134,7 +134,7 @@ class CarsController < ApplicationController
     #  Timer
 
     #elasticity = record.start + 30.minute
-    elasticity = record.start + 15.s
+    elasticity = record.start + 15.second
     job_id= $scheduler.at elasticity do
       record = Record.find_by(id: @customer.record_id)
       record.update_status($cancelled)

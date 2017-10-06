@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       post 'action'
       patch 'action'
       get 'beforecheckout'
+      get 'checkout'
       get 'return'
       post 'reserve'
       get 'cancel'
