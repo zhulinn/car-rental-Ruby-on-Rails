@@ -53,14 +53,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.delivery_method = :smtp
-
-  config.action_mailer.smtp_settings = {
-    address: 'csc517xgong6@gmail.com',
-    port: 587,
-    user_name: '517 csc',
-    password: 'csc517cs',
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
-  config.action_mailer.perform_deliveries = true
+  
 end

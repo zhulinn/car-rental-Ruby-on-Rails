@@ -50,7 +50,7 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.save
         log_in @customer, $customer
-        CustomerMailer.available_email(@customer).deliver_now
+        #CustomerMailer.available_email(@customer).deliver_now
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
