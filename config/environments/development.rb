@@ -58,8 +58,6 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
 
-<<<<<<< HEAD
-=======
   config.action_mailer.smtp_settings = {
     address: 'csc517xgong6@gmail.com',
     port: 578,
@@ -69,5 +67,5 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   config.action_mailer.perform_deliveries = true
->>>>>>> email
+
 end
