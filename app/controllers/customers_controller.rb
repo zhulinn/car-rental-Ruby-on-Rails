@@ -81,7 +81,14 @@ class CustomersController < ApplicationController
   # DELETE /customers/1.json
   def destroy
     # Update status of the car relative to this customer to 'Available'.
-    Car.find_by(id: @customer.car_id).update_status($available) unless @customer.car_id.nil?
+    unless @customer.car_id.nil?
+    car = Car.find_by(id: @customer.car_id)
+    car.update_status($available)
+    car.update_customer_id(nil)
+    end
+    unless @customer.job_id.nil?
+      $scheduler.job(@customer.job_id).unschedule
+    end
     @customer.destroy
     respond_to do |format|
       format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
