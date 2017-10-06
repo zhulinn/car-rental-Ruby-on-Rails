@@ -135,7 +135,11 @@ class CarsController < ApplicationController
 
     #elasticity = record.start + 30.minute
     elasticity = record.start + 15.second
-    job_id= $scheduler.at elasticity do
+    job_id= $scheduler.at elasticity.to_s do
+
+
+
+
       record = Record.find_by(id: @customer.record_id)
       record.update_status($cancelled)
       record.update_hours("0")
