@@ -15,6 +15,12 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 * By clicking on the "show" of a particular car, you can see all the detail about this car on a new page.
 * Different operation buttons are shown by both checking the status of car and user. Click on the "Check out"/"Returned" to check out/returned this car, or click on the "Reservation"/"Cancel Reservation" to reserve/cancel reservation of this car.
 * Admins and SuperAdmin are able to reserve or cancel reservation, check out or return a car on behalf of a customer. 
+# Multi-Cumstomers Reservation Support
+* The system supports multiple cumstomers reserve the same car as long as the reservation time is not conficting.
+* The system will automatically change the right car status if the car has reservation already when the car is returned. 
+# Auto Cancel and return
+* The system will cancel a reservation if a user doesn’t check out a car in time.
+* The system will change the car status, if a user doesn’t return a car on the date promised.
 # Records
 * SuperAdmin and Admin can see all the reservations and check-out information in "Records", and can click on the "details" to see more specific information about one record.
 * Customer can see all his/her own reservations and check-out information in "Records", and can click on the "details" to see more specific information about one record.
