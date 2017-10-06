@@ -91,4 +91,13 @@ Rails.application.configure do
 
   config.logger = Logger.new(STDOUT)
   config.log_level = :info
+
+  config.action_mailer.smtp_settings = {
+      address: 'csc517xgong6@gmail.com',
+      port: 587,
+      user_name: '517 csc',
+      password: 'csc517cs',
+      authentication: :plain,
+      enable_starttls_auto: true
+  }
 end
