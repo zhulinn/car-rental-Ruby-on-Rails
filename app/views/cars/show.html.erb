@@ -106,7 +106,7 @@
                 </p>
 
       <% end %>
-     <% else %>
+     <% elsif current_user.status == $returned %>
         <%= form_for @car, url: {action: 'action'} do |f| %>
             <br>
             <%= submit_tag 'Reserve', name: 'reserve_btn' %>
@@ -133,17 +133,16 @@
             <%= submit_tag 'Cancel Reservation', name: 'cancel_btn' %>
         <% end %>
 
-    <% elsif @car.customer_id == current_user.id %>
+    <% else %> <!-- customer -->
         <%= form_for @car, url: {action: 'action'} do |f| %>
+            <% if @car.customer_id == current_user.id %>
                 <%= submit_tag 'Check Out', name: 'checkout_btn' %>
-            <br>
-            <br>
+                <br>
+                <br>
                 <%= submit_tag 'Cancel Reservation', name: 'cancel_btn' %>
-        <% end %>
-
-    <% elsif current_user.status == $returned%>
-        <%= form_for @car, url: {action: 'action'} do |f| %>
-            <%= submit_tag 'Reserve', name: 'reserve_btn' %>
+            <% elsif current_user.status == $returned %>
+                <%= submit_tag 'Reserve', name: 'reserve_btn' %>
+            <% end%>
         <% end %>
     <% end %>
 <% elsif @car.status == $checkedout%>
