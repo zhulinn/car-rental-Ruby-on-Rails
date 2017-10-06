@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get 'schedule'
       post 'action'
       patch 'action'
+      get 'beforecheckout'
       get 'checkout'
       get 'return'
       post 'reserve'

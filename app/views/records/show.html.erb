@@ -37,12 +37,12 @@
 
 <p>
   <strong>Start Time:</strong>
-  <%= @record.start %>
+  <%= @record.start.in_time_zone('Eastern Time (US & Canada)') %>
 </p>
 
 <p>
   <strong>End Time:</strong>
-  <%= @record.end %>
+  <%= @record.end.in_time_zone('Eastern Time (US & Canada)') %>
 </p>
 
 <p>

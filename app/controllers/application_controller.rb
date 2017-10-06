@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
+  config.time_zone = 'Eastern Time (US & Canada)'
+  #config.active_record.default_timezone = :local
   protect_from_forgery with: :exception
+  require 'rufus-scheduler'
   include SessionsHelper
   include CustomersHelper
   $customer = 'Customer'
@@ -11,6 +14,8 @@ class ApplicationController < ActionController::Base
   $returned = 'Returned'
   $cancelled = 'Cancelled'
   $suggested = 'Suggested'
+
+  $scheduler = Rufus::Scheduler.new
 
   def back_if_not_logged_in
     back_to_place unless logged_in?

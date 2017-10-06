@@ -19,6 +19,8 @@ class SessionsController < ApplicationController
     authority=user.class.to_s unless user==nil
     if user && user.authenticate(params[:session][:password])
       # 登入用户，然后重定向到用户的资料页面
+      flash[:notice] = ''
+
       log_in user, authority
       redirect_to user
     else
