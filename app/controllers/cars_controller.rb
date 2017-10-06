@@ -148,8 +148,8 @@ class CarsController < ApplicationController
     ########################################
     #  Timer
 
-     # elasticity = record.start + 30.minute
-          elasticity = record.start + 20.second
+      elasticity = record.start + 30.minute
+          #elasticity = record.start + 20.second
       job_id = $scheduler.at elasticity.to_s do
         record = Record.find_by(id: @customer.record_id)
         record.update_status($cancelled)
@@ -235,9 +235,9 @@ class CarsController < ApplicationController
     car.update_status($checkedout)
 ########################################
 #  Open Timer （call return method）  endtime  change to available
-        tmp = record.start +  40.second  #  should comment
-        job_id= $scheduler.at tmp.to_s do
-      #job_id= $scheduler.at record.end do
+        #tmp = record.start +  40.second  #  should comment
+       # job_id= $scheduler.at tmp.to_s do
+      job_id= $scheduler.at record.end do
           record.update_status($returned)
           charge = customer.charge + car.rate * record.hours
 
