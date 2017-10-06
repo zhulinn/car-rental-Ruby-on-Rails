@@ -87,13 +87,14 @@ class CarsController < ApplicationController
   end
 
   def findNext car, customer
-    reservations = Record.where('status = ? and car_id =? and customer_id != ?', $reserved, customer.id)
+    reservations = Record.where('status = ? and car_id =? and customer_id != ?',
+                                $reserved, car, customer.id).order( :start )
     if reservations.size == 0
       car.update_status($available)
       car.update_attribute(:customer_id, "")
 
     else
-      nextone = reservations.minimum(:start)  # next reservation
+      nextone = reservations.first # next reservation
       car.update_status($reserved)
       car.update_attribute(:customer_id, "#{nextone.customer_id}")
 
@@ -147,8 +148,8 @@ class CarsController < ApplicationController
     ########################################
     #  Timer
 
-      elasticity = record.start + 30.minute
-          # elasticity = record.start + 15.second
+     # elasticity = record.start + 30.minute
+          elasticity = record.start + 20.second
       job_id = $scheduler.at elasticity.to_s do
         record = Record.find_by(id: @customer.record_id)
         record.update_status($cancelled)
@@ -245,8 +246,9 @@ class CarsController < ApplicationController
 
 ########################################
 #  Open Timer （call return method）  endtime  change to available
-       # tmp = record.start +  30.second  #  should comment
-      job_id= $scheduler.at record.end do
+        tmp = record.start +  40.second  #  should comment
+        job_id= $scheduler.at tmp.to_s do
+      #job_id= $scheduler.at record.end do
           record.update_status($returned)
           charge = @customer.charge + @car.rate * record.hours
 
