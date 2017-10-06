@@ -270,6 +270,8 @@ class CarsController < ApplicationController
       end
     end
 
+          UserMailer.return_email(@customer, @car).deliver_now
+
         unless $scheduler.job(@customer.job_id).nil?
           $scheduler.job(@customer.job_id).unschedule
         end
