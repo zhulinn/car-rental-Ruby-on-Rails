@@ -350,11 +350,13 @@ class CarsController < ApplicationController
   # POST /cars
   # POST /cars.json
   def create
-    params[:car][:status] = if current_authority == $customer
-                              $suggested
-                            else
-                              $available
-                            end
+    if current_authority == $customer
+       params[:car][:status] =  $suggested
+      str = "suggested."
+    else
+       params[:car][:status] =  $available
+      str = "created."
+    end
     @car = Car.new(car_params)
     respond_to do |format|
       if @car.save
@@ -363,7 +365,7 @@ class CarsController < ApplicationController
           current_user.update_car_id(@car.id)
         end
         format.html do
-          redirect_to @car, notice: 'Car was successfully created.'
+          redirect_to @car, notice: "Car was successfully "+ str
           return
         end
         format.json { render :show, status: :created, location: @car }
