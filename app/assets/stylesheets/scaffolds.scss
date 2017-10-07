@@ -9,7 +9,7 @@ body {
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 18px;
 }
 
@@ -21,12 +21,12 @@ pre {
 
 a {
 
-  color: lightgoldenrodyellow;
+  color: darkred;
 
 
 
   &:visited {
-    color: lightgoldenrodyellow;
+    color: darkred;
   ;
 
   }
@@ -53,23 +53,23 @@ div {
 
 #notice {
   color: red;
-  margin-left:400px;
+  text-align:center;
   font-size:15px;
 }
 
 .field_with_errors {
-  margin-left:610px;
   padding: 2px;
   background-color: red;
   display: table;
+  margin:0 auto;
 }
 
 #error_explanation {
   width: 500px;
   border: 2px solid red;
   padding: 7px 7px 0;
-  margin-bottom: 20px;
-  margin-left:420px;
+  text-align: center;
+  margin:0 auto;
   background-color: #f0f0f0;
 
 
