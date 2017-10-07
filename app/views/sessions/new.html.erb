@@ -11,7 +11,7 @@
   </style>
 
 <h1 style ="font-size:50px;text-align:center;color:whitesmoke;margin-left:400px">Car Rental</h1>
-<p id="notice2"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
   <div class="row">
 
@@ -23,9 +23,9 @@
           <%= f.label :password %>
           <%= f.password_field :password, class: 'form-control' %>
           <br>
-          <%= f.submit "log in", class: "btn btn-primary", style: "padding: 30px 60px;font-size: 50px" %>
+          <%= f.submit "log in", class: "btn btn-primary" %>
       <% end %>
-    <p style="font-size:20px;">New user? <%= link_to "Sign up now!", signup_path ,style: "color:lightgoldenrodyellow"%></p>
+    <p style="font-size:20px;">New user? <%= link_to "Sign up now!", signup_path %></p>
 
     <body background="http://st.motortrend.com/uploads/sites/5/2013/04/2013-Honda-Fit-front-view-hatch-open1.jpg"></body>
 

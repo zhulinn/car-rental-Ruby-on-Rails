@@ -36,7 +36,6 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 * Car Suggestion
   1. Customers can suggest a new car. SuperAdmins and Admins can edit and approve or disapprove this suggestion.
   2. Unapproved car are only visible to its proposer and admins.
-* Email notification
-  1. When the suggestion of a new car is approved, the customer will receive an email notification.
+
 
 
