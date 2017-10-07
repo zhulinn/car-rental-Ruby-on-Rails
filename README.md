@@ -36,7 +36,7 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 # Records
 * SuperAdmin and Admin can see all the reservations and check-out information in "Records", and can click on the "details" to see more specific information about one record.
 * Customer can see all his/her own reservations and check-out information in "Records", and can click on the "details" to see more specific information about one record.
-# Instructions
+# Corner Case
 * When Admin delete a car from the system:
   1. The user who is reserving or checking out this car will update his(her) status to indicate he(she) has returned the car.
   2. All records associated with the car will be removed including the reserve record and checked out record.
