@@ -77,7 +77,7 @@ class CarsController < ApplicationController
   end
 
   def subscribe
-    @customer.update_attribute(:subscribe_car_id, "#{@car.id}")
+    @customer.update_subscribe_car_id(@car.id)
     respond_to do |format|
       format.html { redirect_to @car, notice: 'Car was successfully subscribed'; return }
       format.json { head :no_content }

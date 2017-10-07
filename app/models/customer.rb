@@ -40,4 +40,7 @@ class Customer < ApplicationRecord
   def update_car_id(car_id)
     update_attribute(:car_id, car_id)
   end
+  def update_subscribe_car_id(car_id)
+    update_attribute(:subscribe_car_id, car_id)
+  end
 end
