@@ -79,7 +79,7 @@ class CarsController < ApplicationController
   def subscribe
     @customer.update_subscribe_car_id(@car.id)
     respond_to do |format|
-      format.html { redirect_to @car, notice: 'Car was successfully subscribed'; return }
+      format.html { redirect_to @car, notice: 'Car was successfully subscribed, you will receive a email when car is available'; return }
       format.json { head :no_content }
     end
 
