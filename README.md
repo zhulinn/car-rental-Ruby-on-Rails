@@ -7,6 +7,13 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 * Preconfigured super admin: *Email: sadmin1@email.com, *Password: 333333
 # Admin
 * Preconfigured admin: *Email: admin1@email.com, *Password: 222222
+# Corner Case
+* When Admin delete a car from the system:
+  1. The user who is reserving or checking out this car will update his(her) status to indicate he(she) has returned the car.
+  2. All records associated with the car will be removed including the reserve record and checked out record.
+* When Admin delete a user from the system:
+  1. The car which is reserved or checked out by this user will update its status to indicate the user has returned the car.
+  2. All records associated with the user will be removed, including the reservations, and checked out records.
 # Bonus
 * Car Suggestion
   1. Customers can suggest a new car. SuperAdmins and Admins can edit and approve or disapprove this suggestion.
@@ -22,8 +29,6 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 # Auto Cancel and return
 * The system will cancel a reservation if a user doesn’t check out a car in time.
 * The system will change the car status, if a user doesn’t return a car on the date promised.
-# Sign up
-* New customers can sign up on the welcome pages, and will automatically logged in after signing up.
 # Car
 * SuperAdmin, Admin, and Customer can click on the "Cars" to see a list of cars.
 * Cars can be searched by location, model, manufacturer, style and status.
@@ -36,13 +41,7 @@ Live demo: https://car-rental-ltx.herokuapp.com/
 # Records
 * SuperAdmin and Admin can see all the reservations and check-out information in "Records", and can click on the "details" to see more specific information about one record.
 * Customer can see all his/her own reservations and check-out information in "Records", and can click on the "details" to see more specific information about one record.
-# Corner Case
-* When Admin delete a car from the system:
-  1. The user who is reserving or checking out this car will update his(her) status to indicate he(she) has returned the car.
-  2. All records associated with the car will be removed including the reserve record and checked out record.
-* When Admin delete a user from the system:
-  1. The car which is reserved or checked out by this user will update its status to indicate the user has returned the car.
-  2. All records associated with the user will be removed, including the reservations, and checked out records.
+
 
 
 
