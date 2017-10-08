@@ -24,7 +24,7 @@ class CarsController < ApplicationController
 
     attribute = params[:attribute]
     value = params[:value]
-    @cars =    @car.where("#{attribute}.downcase = ?", value.downcase)  unless value.nil? || value.blank?
+    @cars = @cars.where("#{attribute.downcase} = ?", value.downcase) unless value.nil? || value.blank?
 
   end
 
