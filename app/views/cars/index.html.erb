@@ -36,7 +36,7 @@
         <td><%= car.style %></td>
         <td><%= car.location %></td>
         <td><%= car.status %></td>
-        <td><%= link_to 'Details', car %></td>
+        <td><%= link_to 'Check Details to rent', car %></td>
         <% if car.status == $suggested %>
             <% if current_authority == $customer %>
                 <td><%= link_to 'Edit Suggestion', edit_car_path(car) %></td>
