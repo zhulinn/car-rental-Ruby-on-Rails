@@ -156,7 +156,7 @@
             <% if @car.customer_id == current_user.id %>
                 <%= submit_tag 'Return', name: 'return_btn' %>
             <% elsif current_user.subscribe_car_id == nil%>
-                <%= submit_tag 'Subscribe', name: 'subscribe_btn' %>
+                <%= submit_tag 'Subscribe a email notification', name: 'subscribe_btn' %>
             <% end %>
         <% end %>
      <% end %>
