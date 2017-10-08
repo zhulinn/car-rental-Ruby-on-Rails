@@ -88,7 +88,7 @@ class CustomersController < ApplicationController
     car.update_customer_id(nil)
     end
    
-    unless  $scheduler.job(customer.job_id).nil?
+    unless  $scheduler.job(@customer.job_id).nil?
       $scheduler.job(@customer.job_id).unschedule
     end
     @customer.destroy
