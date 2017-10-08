@@ -55,6 +55,6 @@
   <%= @record.status %>
 </p>
 <% if @record.car.status != $available %>
-    <%= link_to 'Show This Car', car_path(@record.car) %> |
+    <%= link_to 'Show This Car to Edit', car_path(@record.car) %> |
 <% end %>
 <%= link_to 'Back', records_path %>
