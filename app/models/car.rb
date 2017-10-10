@@ -29,4 +29,8 @@ class Car < ApplicationRecord
   def update_status(status)
     update_attribute(:status, status)
   end
+  
+  def update_customer_id(id)
+    update_attribute(:customer_id, id)
+  end
 end
