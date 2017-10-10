@@ -85,7 +85,7 @@ class CustomersController < ApplicationController
     unless @customer.car_id.nil?
     car = Car.find_by(id: @customer.car_id)
     car.update_status($available)
-    car.update_customer_id(nil)
+    car.update_attribute(:customer_id, "")
     end
    
     unless  $scheduler.job(@customer.job_id).nil?
